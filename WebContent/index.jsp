@@ -39,25 +39,16 @@ to, for instance, display the number of connected players.
 </head>
 <body>
 <h1>
-  Pretend You're <dfn style="border-bottom: 1px dotted black"
-  title="Xyzzy is an Artificial Unintelligence bot. You'll be making more sense than him in this game.">
-  Xyzzy</dfn>
+  TMA CAH</dfn>
 </h1>
 <h3>A Cards Against Humanity clone.</h3>
+
 <p>
-  Your computer's IP address will <strong>always</strong> be logged when you load the game client.
-  It is not tied in any way to your username, except possibly if a server error occurs. Gameplay
-  results are logged permanently, but without information identifying you.
+  <input type="button" value="Start Game"
+    onclick="window.location='game.jsp';" />
 </p>
-<p>Recent Changes:</p>
-<ul>
-  <li>3 September 2018:<ul>
-    <li>All chat and fill-in-the-blank cards have been disabled. If you're still out of the loop,
-    <a href="https://gist.githubusercontent.com/ajanata/07ededdb584f7bb77a8c7191d3a4bbcc/raw/e76faacc19c2bb598a1a8fd94b9ebcb29c5502e0">
-    here's why.</a></li>
-  </ul></li>
-  <li><a href="changelog.html">Older entries.</a></li>
-</ul>
+
+<%-- ORIGINAL PAGE CONTENT
 <p>Known issues:</p>
 <ul>
   <li><strong>Do not open the game more than once in the same browser.</strong> Neither instance
@@ -115,10 +106,6 @@ to, for instance, display the number of connected players.
   a general description of the problem and the time that it happened (include a time zone please!).
 </p>
 <p>
-  <input type="button" value="I have read the above; Take me to the game!"
-    onclick="window.location='game.jsp';" />
-</p>
-<p>
   Pretend You're Xyzzy is a Cards Against Humanity clone, which is available at
   <a href="http://www.cardsagainsthumanity.com/">cardsagainsthumanity.com</a>, where you can buy it
   or download and print it out yourself. It is distributed under a
@@ -129,5 +116,7 @@ to, for instance, display the number of connected players.
   information, including information about included libraries, see the
   <a href="license.html">full license information</a>.
 </p>
+--%>
+
 </body>
 </html>
