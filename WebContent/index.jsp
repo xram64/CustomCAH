@@ -34,7 +34,7 @@ to, for instance, display the number of connected players.
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>TMA CAH</title>
-<jsp:include page="analytics.jsp" />
+
 <link rel="stylesheet" type="text/css" href="cah.css" media="screen" />
 </head>
 <body>
