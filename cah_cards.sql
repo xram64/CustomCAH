@@ -570,12 +570,12 @@ COPY black_cards (id, draw, pick, text, watermark) FROM stdin;
 4004	0	1	Which one of you heathens added an alt named ____ to the guild?	TMA
 4005	0	1	No movie night this week! Instead, we will be ____!	TMA
 4006	0	1	In tonight's post-raid meeting, we discussed ____!	TMA
-4007	2	3	At this yearâ€™s TMA meetup, discover ____, ____, <i>and</i> ____!	TMA
-4008	0	1	Why arenâ€™t we going to Fuckhouse this year?	TMA
+4007	2	3	At this year's TMA meetup, discover ____, ____, <i>and</i> ____!	TMA
+4008	0	1	Why aren't we going to Fuckhouse this year?	TMA
 4009	0	1	That picture of ____ was a bit questionable, even for #horny-jail-see-rules-please.	TMA
 4010	0	1	Right in the ____-ussy.	TMA
 4011	0	1	No, ____ does not qualify as enrichment.	TMA
-4012	0	1	This monthâ€™s TMA hyperfixation is ____.	TMA
+4012	0	1	This month's TMA hyperfixation is ____.	TMA
 4013	0	1	My mom always told me: "____".	TMA
 4014	0	1	Scientists have finally determined that ____ is the real cause of climate change.	TMA
 4015	0	1	When heading to Blizzcon, always bring ____.	TMA
@@ -5666,7 +5666,7 @@ COPY white_cards (id, text, watermark) FROM stdin;
 6002	My downstairs pocket.	TMA
 6003	The friends we made along the way.	TMA
 6004	Faedren's rattle.	TMA
-6005	A rose from <i>Daddydom <Proudmoore></i>.	TMA
+6005	A rose from <i>Daddydom &lt;Proudmoore&gt;</i>.	TMA
 6006	Girl dinner.	TMA
 6007	Big Steve.	TMA
 6008	The Fae-triarchy.	TMA
@@ -5691,9 +5691,9 @@ COPY white_cards (id, text, watermark) FROM stdin;
 6027	Ducks with a drug problem.	TMA
 6028	Breaking your wrist and getting addicted to WoW.	TMA
 6029	Hoping the McElroy brothers stay clean.	TMA
-6030	Having 500+ hours in Baldurâ€™s Gate 3.	TMA
+6030	Having 500+ hours in Baldur's Gate 3.	TMA
 6031	Crocheted sex toys.	TMA
-6032	Spamming "CUTE CHAT AYAYA" in <i>General</i>.	TMA
+6032	Spamming "CUTE CHAT AYAYA" in <i>General</i> chat.	TMA
 6033	Rolling my shoulders and taking my tongue off the roof of my mouth.	TMA
 6034	Cancelling Druids.	TMA
 6035	UwU.	TMA
@@ -5735,7 +5735,7 @@ COPY white_cards (id, text, watermark) FROM stdin;
 6071	A dramatic departure of two friends going separate ways, set to the 2015 Wiz Khalifa banger "See You Again ft. Charlie Puth" off the album "Most Wanted, Vol. 2".	TMA
 6072	The casual-gaming-to-international-travel pipeline.	TMA
 6073	A group of friends that is <i>definitely</i> not a cult.	TMA
-6074	SchrÃ¶dinger's flirt.	TMA
+6074	Schr&ouml;dinger's flirt.	TMA
 6075	Kissing the homies goodnight.	TMA
 6076	A WeakAura that mind controls you through delicious numbers.	TMA
 6077	The intoxicating princess treatment of being the group rat.	TMA
