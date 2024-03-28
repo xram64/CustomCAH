@@ -78,8 +78,8 @@ boolean allowBlankCards = injector.getInstance(Key.get(new TypeLiteral<Boolean>(
   <script type="text/javascript" src="js/cah.app.js"></script>
   <link rel="stylesheet" type="text/css" href="cah.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="jquery-ui.min.css" media="screen" />
-  <link rel="icon" type="image/x-icon" href="images/tma/favicon.ico">
-  <link rel="icon" type="image/png" href="images/tma/favicon.png"/>
+  <link rel="icon" type="image/x-icon" href="tma/favicon.ico">
+  <link rel="icon" type="image/png" href="tma/favicon.png"/>
 </head>
 
 <body id="gamebody">
@@ -128,15 +128,26 @@ boolean allowBlankCards = injector.getInstance(Key.get(new TypeLiteral<Boolean>(
     </div>
   </div>
 </div>
+
+<%-- [Bottom panel] Preferences, Filters, Chat --%>
 <div id="bottom" class="hide">
   <div id="info_area">
   </div>
   <div id="tabs">
-    <ul>
+    <ul class="permahide">  <%-- Tabs hidden. Only 'Global Chat' will be shown. --%>
       <li><a href="#tab-preferences" class="tab-button">User Preferences</a></li>
       <li><a href="#tab-gamelist-filters" class="tab-button">Game List Filters</a></li>
       <li><a href="#tab-global" class="tab-button" id="button-global">Global Chat</a></li>
     </ul>
+
+    <%-- 'Global Chat' tab --%>
+    <div id="tab-global">
+      <div class="log"></div>
+      <input type="text" class="chat" maxlength="200" aria-label="Type here to chat." data-lpignore="true" />
+      <input type="button" class="chat_submit" value="Send" />
+    </div>
+
+    <%-- 'User Preferences' tab --%>
     <div id="tab-preferences">
       <input type="button" value="Save" onclick="cah.Preferences.save();" />
       <input type="button" value="Revert" onclick="cah.Preferences.load();" />
@@ -159,6 +170,8 @@ boolean allowBlankCards = injector.getInstance(Key.get(new TypeLiteral<Boolean>(
       </label>
       <input type="checkbox" id="no_persistent_id" />
     </div>
+
+    <%-- 'Game List Filters' tab --%>
     <div id="tab-gamelist-filters">
       You will have to click Refresh Games after saving any changes here.
       <div style="text-align: right; width:100%">
@@ -199,12 +212,7 @@ boolean allowBlankCards = injector.getInstance(Key.get(new TypeLiteral<Boolean>(
         </div>
       </fieldset>
     </div>
-    <div id="tab-global">
-      <div class="log"></div>
-      <input type="text" class="chat" maxlength="200" aria-label="Type here to chat."
-          data-lpignore="true" />
-      <input type="button" class="chat_submit" value="Chat" />
-    </div>
+
   </div>
 </div>
 
@@ -355,8 +363,8 @@ boolean allowBlankCards = injector.getInstance(Key.get(new TypeLiteral<Boolean>(
 	<div id="scorecard_template" class="scorecard" tabindex="0">
 	  <span class="scorecard_player">PlayerName</span>
 	  <div class="clear"></div>
-	  <span class="scorecard_points"><span class="scorecard_score">0</span> <span class="scorecard_point_title">Awesome Point<span class="scorecard_s">s</span></span></span>
-	  <span class="scorecard_status">Status</span>
+	  <span class="scorecard_points"><span class="scorecard_score">0</span> <span class="scorecard_point_title">Point<span class="scorecard_s">s</span></span></span>
+	  <span class="scorecard_status_wrapper">(<span class="scorecard_status">Status</span>)</span>
 	</div>
 </div>
 
@@ -379,7 +387,6 @@ boolean allowBlankCards = injector.getInstance(Key.get(new TypeLiteral<Boolean>(
 <div class="hide">
   <div class="game_options" id="game_options_template">
     <span class="options_host_only">Only the game host can change options.</span>
-    <br/><br/>
     <fieldset>
       <legend>Game options:</legend>
       <label id="score_limit_template_label" for="score_limit_template">Score limit:</label>
@@ -400,7 +407,6 @@ boolean allowBlankCards = injector.getInstance(Key.get(new TypeLiteral<Boolean>(
           <option <%= i == injector.getInstance(Key.get(Integer.class, DefaultPlayerLimit.class)) ? "selected='selected' " : "" %>value="<%= i %>"><%= i %></option>
         <% } %>
       </select>
-      Having more than 10 players may get cramped!
       <br/>
       <label id="spectator_limit_template_label" for="spectator_limit_template">Spectator limit:</label>
       <select id="spectator_limit_template" class="spectator_limit"
@@ -411,7 +417,6 @@ boolean allowBlankCards = injector.getInstance(Key.get(new TypeLiteral<Boolean>(
           <option <%= i == injector.getInstance(Key.get(Integer.class, DefaultSpectatorLimit.class)) ? "selected='selected' " : "" %>value="<%= i %>"><%= i %></option>
         <% } %>
       </select>
-      Spectators can watch and chat, but not actually play. Not even as Czar.
       <br/>
       <label id="timer_multiplier_template_label" for="timer_multiplier_template"
           title="Players will be skipped if they have not played within a reasonable amount of time. This is the multiplier to apply to the default timeouts, or Unlimited to disable timeouts.">
@@ -439,7 +444,7 @@ boolean allowBlankCards = injector.getInstance(Key.get(new TypeLiteral<Boolean>(
       <fieldset class="card_sets">
         <legend>Card Sets</legend>
         <span class="base_card_sets"></span>
-        <span class="extra_card_sets"></span>
+        <div class="extra_card_sets"></div>
       </fieldset>
       <% if (allowBlankCards) { %>
         <br/>
@@ -458,12 +463,13 @@ boolean allowBlankCards = injector.getInstance(Key.get(new TypeLiteral<Boolean>(
       <input type="text" id="game_password_template" class="game_password"
           aria-label="Game password. You must tab outside of the box to apply the password."/>
       <input type="password" id="game_fake_password_template" class="game_fake_password hide" />
-      You must click outside the box to apply the password.
+      &nbsp;(Click outside the box to apply the password)
+      <br/>
       <input type="checkbox" id="game_hide_password_template" class="game_hide_password" />
       <label id="game_hide_password_template_label" for="game_hide_password_template"
           aria-label="Hide password from your screen."
           title="Hides the password from your screen, so people watching your stream can't see it.">
-        Hide password.
+        Hide password
       </label>
     </fieldset>
   </div>

@@ -426,7 +426,7 @@ function do_app_resize(chatElement, logElement) {
   logElement.width((chatWidth + 2) + 'px');
   chatElement.width((chatWidth - 42) + 'px');
   var bottomHeight = $(window).height() - $("#main").height() - $("#menubar").height() - 29;
-  logElement.height(bottomHeight - chatElement.height() - 40);
+  logElement.height(bottomHeight - chatElement.height() - 2);  // [MOD] Changed from `- 40` to `- 2`
 }
 
 cah.logUserPermalinks = function(data) {

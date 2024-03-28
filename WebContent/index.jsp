@@ -36,21 +36,20 @@ to, for instance, display the number of connected players.
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>TMA CAH</title>
   <link rel="stylesheet" type="text/css" href="cah.css" media="screen" />
-  <link rel="icon" type="image/x-icon" href="images/tma/favicon.ico">
-  <link rel="icon" type="image/png" href="images/tma/favicon.png"/>
+  <link rel="icon" type="image/x-icon" href="tma/favicon.ico">
+  <link rel="icon" type="image/png" href="tma/favicon.png"/>
 </head>
 
-<body>
+<body id="indexbody">
 
-<h1>
-  TMA CAH
-</h1>
-<h3>A Cards Against Humanity clone.</h3>
+<div id="index_content">
+  <h1 id="index_content_title">TMA CAH</h1>
+  <h4 id="index_content_subtitle">A Cards Against Humanity clone</h4>
 
-<p>
-  <input type="button" value="Start Game"
-    onclick="window.location='game.jsp';" />
-</p>
+  <p>
+    <input id="index_content_start" type="button" value="Start Game" onclick="window.location='game.jsp';" />
+  </p>
+</div>
 
 <%-- ORIGINAL PAGE CONTENT
 <p>Known issues:</p>
