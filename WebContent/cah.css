@@ -38,9 +38,37 @@ body {
   font-family: "helvetica neue", helvetica, Arial, sans-serif;
 }
 
-h2,h3,h4 {
+h1 {
   margin: 0 0 .25em;
 }
+
+h2 {
+  margin: 0 0 .25em;
+}
+
+h3 {
+  color: #222;
+  margin: 0 0 .25em;
+}
+
+h4 {
+  margin: 0 0 .25em;
+}
+
+a {
+  text-decoration: none;
+  color: #1d4897;
+}
+a:visited {
+  color: #0a3380;
+}
+a:hover {
+  color: #225ece;
+}
+a:active {
+  color: #6f00d6;
+}
+
 /*
 #browser {
   background: rgba(0, 0, 0, .5);

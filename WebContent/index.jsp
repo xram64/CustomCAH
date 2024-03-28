@@ -33,15 +33,17 @@ to, for instance, display the number of connected players.
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>TMA CAH</title>
-<link rel="stylesheet" type="text/css" href="cah.css" media="screen" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>TMA CAH</title>
+  <link rel="stylesheet" type="text/css" href="cah.css" media="screen" />
+  <link rel="icon" type="image/x-icon" href="images/tma/favicon.ico">
+  <link rel="icon" type="image/png" href="images/tma/favicon.png"/>
 </head>
 
 <body>
 
 <h1>
-  TMA CAH</dfn>
+  TMA CAH
 </h1>
 <h3>A Cards Against Humanity clone.</h3>
 

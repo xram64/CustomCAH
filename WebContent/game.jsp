@@ -46,97 +46,59 @@ ServletContext servletContext = pageContext.getServletContext();
 Injector injector = (Injector) servletContext.getAttribute(StartupUtils.INJECTOR);
 boolean allowBlankCards = injector.getInstance(Key.get(new TypeLiteral<Boolean>(){}, AllowBlankCards.class));
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>TMA CAH</title>
-<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="js/jquery-migrate-1.2.1.js"></script>
-<script type="text/javascript" src="js/jquery.cookie.js"></script>
-<script type="text/javascript" src="js/jquery.json.js"></script>
-<script type="text/javascript" src="js/QTransform.js"></script>
-<script type="text/javascript" src="js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="js/cah.js"></script>
-<script type="text/javascript" src="js/cah.config.js"></script>
-<%-- cah must be first, ajax must be before app. app probably has to be last. --%>
-<%-- TODO make this be dynamic with looking at the filesystem and using jquery --%>
-<%-- except that is nontrivial thanks to dependency ordering -_- --%>
-<script type="text/javascript" src="js/cah.constants.js"></script>
-<script type="text/javascript" src="js/cah.log.js"></script>
-<script type="text/javascript" src="js/cah.gamelist.js"></script>
-<script type="text/javascript" src="js/cah.card.js"></script>
-<script type="text/javascript" src="js/cah.cardset.js"></script>
-<script type="text/javascript" src="js/cah.game.js"></script>
-<script type="text/javascript" src="js/cah.preferences.js"></script>
-<script type="text/javascript" src="js/cah.longpoll.js"></script>
-<script type="text/javascript" src="js/cah.longpoll.handlers.js"></script>
-<script type="text/javascript" src="js/cah.ajax.js"></script>
-<script type="text/javascript" src="js/cah.ajax.builder.js"></script>
-<script type="text/javascript" src="js/cah.ajax.handlers.js"></script>
-<script type="text/javascript" src="js/cah.app.js"></script>
-<link rel="stylesheet" type="text/css" href="cah.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="jquery-ui.min.css" media="screen" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>TMA CAH</title>
+  <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="js/jquery-migrate-1.2.1.js"></script>
+  <script type="text/javascript" src="js/jquery.cookie.js"></script>
+  <script type="text/javascript" src="js/jquery.json.js"></script>
+  <script type="text/javascript" src="js/QTransform.js"></script>
+  <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="js/cah.js"></script>
+  <script type="text/javascript" src="js/cah.config.js"></script>
+  <%-- cah must be first, ajax must be before app. app probably has to be last. --%>
+  <%-- TODO make this be dynamic with looking at the filesystem and using jquery --%>
+  <%-- except that is nontrivial thanks to dependency ordering -_- --%>
+  <script type="text/javascript" src="js/cah.constants.js"></script>
+  <script type="text/javascript" src="js/cah.log.js"></script>
+  <script type="text/javascript" src="js/cah.gamelist.js"></script>
+  <script type="text/javascript" src="js/cah.card.js"></script>
+  <script type="text/javascript" src="js/cah.cardset.js"></script>
+  <script type="text/javascript" src="js/cah.game.js"></script>
+  <script type="text/javascript" src="js/cah.preferences.js"></script>
+  <script type="text/javascript" src="js/cah.longpoll.js"></script>
+  <script type="text/javascript" src="js/cah.longpoll.handlers.js"></script>
+  <script type="text/javascript" src="js/cah.ajax.js"></script>
+  <script type="text/javascript" src="js/cah.ajax.builder.js"></script>
+  <script type="text/javascript" src="js/cah.ajax.handlers.js"></script>
+  <script type="text/javascript" src="js/cah.app.js"></script>
+  <link rel="stylesheet" type="text/css" href="cah.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="jquery-ui.min.css" media="screen" />
+  <link rel="icon" type="image/x-icon" href="images/tma/favicon.ico">
+  <link rel="icon" type="image/png" href="images/tma/favicon.png"/>
 </head>
+
 <body id="gamebody">
 
 <div id="welcome">
-  <div id="tweetbox">
-    <h3>Recent tweets (mainly server status updates)</h3>
-    <a class="twitter-timeline" data-height="500" data-dnt="true" data-theme="light"
-    href="https://twitter.com/_PYX_?ref_src=twsrc%5Etfw">Tweets by _PYX_</a>
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-  </div>
+
   <h1 tabindex="0">
-    TMA CAH</dfn>
+    TMA CAH
   </h1>
   <h3>A <a href="http://cardsagainsthumanity.com/">Cards Against Humanity</a> clone.</h3>
-  <p>
-    If this is your first time playing, you may wish to read <a href="index.jsp">the changelog and
-    list of known issues</a>.
-  </p>
-  <p>
-    Your computer's IP address will <strong>always</strong> be logged when you load the game client.
-    It is not tied in any way to your username, except possibly if a server error occurs. Gameplay
-    results are logged permanently, but without information identifying you.
-  </p>
-  <p tabindex="0">Most recent update: 3 September 2018:</p>
-  <ul>
-    <li>All chat and fill-in-the-blank cards have been disabled. If you're still out of the loop,
-    <a href="https://gist.githubusercontent.com/ajanata/07ededdb584f7bb77a8c7191d3a4bbcc/raw/e76faacc19c2bb598a1a8fd94b9ebcb29c5502e0">
-    here's why.</a></li>
-  </ul>
-  <h2>The servers are incredibly busy right now. There are several servers to try, there will be
-  room elsewhere! <a href='https://pretendyoure.xyz/zy'>CLICK HERE</a> to see the server list. As
-  long as you're on the same server as your friends, you can play together. Please stop crowding
-  pyx-1 ("The Biggest, Blackest Dick").</h2>
+
   <div id="nickbox">
-    <label for="nickname">Nickname:</label>
+    <label for="nickname">Name:</label>
     <input type="text" id="nickname" value="" maxlength="30" role="textbox"
         aria-label="Enter your nickname." data-lpignore="true" />
-    <label for="idcode">
-    <dfn title="Only available via HTTPS. Provide a secret identification code to positively identify yourself in the chat.">
-    Optional identification code:</dfn></label>
-    <input type="password" id="idcode" value="" maxlength="100" disabled="disabled"
-        aria-label="Optionally enter an identification code." />
-    <a href="https://github.com/ajanata/PretendYoureXyzzy/wiki/Identification-Codes">(Help)</a>
     <input type="button" id="nicknameconfirm" value="Set" />
     <span id="nickbox_error" class="error"></span>
   </div>
-  <p><a href="privacy.html"><strong>Hey, this is important:</strong> Read the privacy page for
-  details about what gameplay information is collected and how it's shared.</a></p>
-  <p>
-    Pretend You're Xyzzy is a Cards Against Humanity clone, which is available at
-    <a href="http://www.cardsagainsthumanity.com/">cardsagainsthumanity.com</a>, where you can buy
-    it or download and print it out yourself. It is distributed under a
-    <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons - Attribution -
-    Noncommercial - Share Alike license</a>. This web version is in no way endorsed or sponsored by
-    cardsagainsthumanity.com. You may download the source code to this version from
-    <a href="https://github.com/ajanata/PretendYoureXyzzy">GitHub</a>. For full license
-    information, including information about included libraries, see the
-    <a href="license.html">full license information</a>.
-  </p>
+
 </div>
 
 <div id="canvas" class="hide">
