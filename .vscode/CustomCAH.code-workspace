@@ -4,5 +4,21 @@
 			"path": ".."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"workbench.colorCustomizations": {
+			"commandCenter.border": "#e7e7e799",
+			"sash.hoverBorder": "#428856",
+			"statusBar.background": "#316640",
+			"statusBar.foreground": "#e7e7e7",
+			"statusBarItem.hoverBackground": "#428856",
+			"statusBarItem.remoteBackground": "#316640",
+			"statusBarItem.remoteForeground": "#e7e7e7",
+			"tab.activeBorder": "#428856",
+			"titleBar.activeBackground": "#316640",
+			"titleBar.activeForeground": "#e7e7e7",
+			"titleBar.inactiveBackground": "#31664099",
+			"titleBar.inactiveForeground": "#e7e7e799"
+		},
+		"peacock.color": "#316640"
+	}
 }
