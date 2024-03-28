@@ -3,7 +3,7 @@
 -- For more information, see http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 -- This file contains the Black Cards and White Cards for Cards Against Humanity, as a script for importing into PostgreSQL.
--- There should be a user named TMA_CAH_PG. [ ## MOD :: Original PostgreSQL username was `pyx` ##]
+-- There should be a user named TMA_CAH_PG. References to the user in this file must be quoted to maintain case. [ # MOD :: Original PostgreSQL username was `pyx` #]
 -- This contains all of the official cards through Q3 2017, imported via pyx-importer from a spreadsheet provided by CAH.
 
 --
@@ -47,9 +47,12 @@ SET default_tablespace = '';
 
 SET default_with_oids = false;
 
+-- Drop existing `black_cards` table (only this table exists after container starts).  # MOD #
+DROP TABLE black_cards;
+
 --
 -- TOC entry 185 (class 1259 OID 17734)
--- Name: black_cards; Type: TABLE; Schema: public; Owner: TMA_CAH_PG
+-- Name: black_cards; Type: TABLE; Schema: public; Owner: "TMA_CAH_PG"
 --
 
 CREATE TABLE black_cards (
@@ -61,11 +64,11 @@ CREATE TABLE black_cards (
 );
 
 
-ALTER TABLE black_cards OWNER TO TMA_CAH_PG;
+ALTER TABLE black_cards OWNER TO "TMA_CAH_PG";
 
 --
 -- TOC entry 186 (class 1259 OID 17742)
--- Name: card_set; Type: TABLE; Schema: public; Owner: TMA_CAH_PG
+-- Name: card_set; Type: TABLE; Schema: public; Owner: "TMA_CAH_PG"
 --
 
 CREATE TABLE card_set (
@@ -78,11 +81,11 @@ CREATE TABLE card_set (
 );
 
 
-ALTER TABLE card_set OWNER TO TMA_CAH_PG;
+ALTER TABLE card_set OWNER TO "TMA_CAH_PG";
 
 --
 -- TOC entry 187 (class 1259 OID 17750)
--- Name: card_set_black_card; Type: TABLE; Schema: public; Owner: TMA_CAH_PG
+-- Name: card_set_black_card; Type: TABLE; Schema: public; Owner: "TMA_CAH_PG"
 --
 
 CREATE TABLE card_set_black_card (
@@ -91,11 +94,11 @@ CREATE TABLE card_set_black_card (
 );
 
 
-ALTER TABLE card_set_black_card OWNER TO TMA_CAH_PG;
+ALTER TABLE card_set_black_card OWNER TO "TMA_CAH_PG";
 
 --
 -- TOC entry 188 (class 1259 OID 17755)
--- Name: card_set_white_card; Type: TABLE; Schema: public; Owner: TMA_CAH_PG
+-- Name: card_set_white_card; Type: TABLE; Schema: public; Owner: "TMA_CAH_PG"
 --
 
 CREATE TABLE card_set_white_card (
@@ -104,11 +107,11 @@ CREATE TABLE card_set_white_card (
 );
 
 
-ALTER TABLE card_set_white_card OWNER TO TMA_CAH_PG;
+ALTER TABLE card_set_white_card OWNER TO "TMA_CAH_PG";
 
 --
 -- TOC entry 190 (class 1259 OID 17788)
--- Name: hibernate_sequence; Type: SEQUENCE; Schema: public; Owner: TMA_CAH_PG
+-- Name: hibernate_sequence; Type: SEQUENCE; Schema: public; Owner: "TMA_CAH_PG"
 --
 
 CREATE SEQUENCE hibernate_sequence
@@ -119,11 +122,11 @@ CREATE SEQUENCE hibernate_sequence
     CACHE 1;
 
 
-ALTER TABLE hibernate_sequence OWNER TO TMA_CAH_PG;
+ALTER TABLE hibernate_sequence OWNER TO "TMA_CAH_PG";
 
 --
 -- TOC entry 189 (class 1259 OID 17760)
--- Name: white_cards; Type: TABLE; Schema: public; Owner: TMA_CAH_PG
+-- Name: white_cards; Type: TABLE; Schema: public; Owner: "TMA_CAH_PG"
 --
 
 CREATE TABLE white_cards (
@@ -133,12 +136,12 @@ CREATE TABLE white_cards (
 );
 
 
-ALTER TABLE white_cards OWNER TO TMA_CAH_PG;
+ALTER TABLE white_cards OWNER TO "TMA_CAH_PG";
 
 --
 -- TOC entry 2189 (class 0 OID 17734)
 -- Dependencies: 185
--- Data for Name: black_cards; Type: TABLE DATA; Schema: public; Owner: TMA_CAH_PG
+-- Data for Name: black_cards; Type: TABLE DATA; Schema: public; Owner: "TMA_CAH_PG"
 --
 
 COPY black_cards (id, draw, pick, text, watermark) FROM stdin;
@@ -615,7 +618,7 @@ COPY black_cards (id, draw, pick, text, watermark) FROM stdin;
 --
 -- TOC entry 2190 (class 0 OID 17742)
 -- Dependencies: 186
--- Data for Name: card_set; Type: TABLE DATA; Schema: public; Owner: TMA_CAH_PG
+-- Data for Name: card_set; Type: TABLE DATA; Schema: public; Owner: "TMA_CAH_PG"
 --
 
 COPY card_set (id, active, base_deck, description, name, weight) FROM stdin;
@@ -671,7 +674,7 @@ COPY card_set (id, active, base_deck, description, name, weight) FROM stdin;
 --
 -- TOC entry 2191 (class 0 OID 17750)
 -- Dependencies: 187
--- Data for Name: card_set_black_card; Type: TABLE DATA; Schema: public; Owner: TMA_CAH_PG
+-- Data for Name: card_set_black_card; Type: TABLE DATA; Schema: public; Owner: "TMA_CAH_PG"
 --
 
 COPY card_set_black_card (card_set_id, black_card_id) FROM stdin;
@@ -1463,7 +1466,7 @@ COPY card_set_black_card (card_set_id, black_card_id) FROM stdin;
 --
 -- TOC entry 2192 (class 0 OID 17755)
 -- Dependencies: 188
--- Data for Name: card_set_white_card; Type: TABLE DATA; Schema: public; Owner: TMA_CAH_PG
+-- Data for Name: card_set_white_card; Type: TABLE DATA; Schema: public; Owner: "TMA_CAH_PG"
 --
 
 COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
@@ -4354,7 +4357,7 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 --
 -- TOC entry 2193 (class 0 OID 17760)
 -- Dependencies: 189
--- Data for Name: white_cards; Type: TABLE DATA; Schema: public; Owner: TMA_CAH_PG
+-- Data for Name: white_cards; Type: TABLE DATA; Schema: public; Owner: "TMA_CAH_PG"
 --
 
 COPY white_cards (id, text, watermark) FROM stdin;
@@ -5752,7 +5755,7 @@ COPY white_cards (id, text, watermark) FROM stdin;
 --
 -- TOC entry 2202 (class 0 OID 0)
 -- Dependencies: 190
--- Name: hibernate_sequence; Type: SEQUENCE SET; Schema: public; Owner: TMA_CAH_PG
+-- Name: hibernate_sequence; Type: SEQUENCE SET; Schema: public; Owner: "TMA_CAH_PG"
 --
 
 SELECT pg_catalog.setval('hibernate_sequence', 2622, true);
@@ -5760,7 +5763,7 @@ SELECT pg_catalog.setval('hibernate_sequence', 2622, true);
 
 --
 -- TOC entry 2059 (class 2606 OID 17741)
--- Name: black_cards black_cards_pkey; Type: CONSTRAINT; Schema: public; Owner: TMA_CAH_PG
+-- Name: black_cards black_cards_pkey; Type: CONSTRAINT; Schema: public; Owner: "TMA_CAH_PG"
 --
 
 ALTER TABLE ONLY black_cards
@@ -5769,7 +5772,7 @@ ALTER TABLE ONLY black_cards
 
 --
 -- TOC entry 2063 (class 2606 OID 17754)
--- Name: card_set_black_card card_set_black_card_pkey; Type: CONSTRAINT; Schema: public; Owner: TMA_CAH_PG
+-- Name: card_set_black_card card_set_black_card_pkey; Type: CONSTRAINT; Schema: public; Owner: "TMA_CAH_PG"
 --
 
 ALTER TABLE ONLY card_set_black_card
@@ -5778,7 +5781,7 @@ ALTER TABLE ONLY card_set_black_card
 
 --
 -- TOC entry 2061 (class 2606 OID 17749)
--- Name: card_set card_set_pkey; Type: CONSTRAINT; Schema: public; Owner: TMA_CAH_PG
+-- Name: card_set card_set_pkey; Type: CONSTRAINT; Schema: public; Owner: "TMA_CAH_PG"
 --
 
 ALTER TABLE ONLY card_set
@@ -5787,7 +5790,7 @@ ALTER TABLE ONLY card_set
 
 --
 -- TOC entry 2065 (class 2606 OID 17759)
--- Name: card_set_white_card card_set_white_card_pkey; Type: CONSTRAINT; Schema: public; Owner: TMA_CAH_PG
+-- Name: card_set_white_card card_set_white_card_pkey; Type: CONSTRAINT; Schema: public; Owner: "TMA_CAH_PG"
 --
 
 ALTER TABLE ONLY card_set_white_card
@@ -5796,7 +5799,7 @@ ALTER TABLE ONLY card_set_white_card
 
 --
 -- TOC entry 2067 (class 2606 OID 17767)
--- Name: white_cards white_cards_pkey; Type: CONSTRAINT; Schema: public; Owner: TMA_CAH_PG
+-- Name: white_cards white_cards_pkey; Type: CONSTRAINT; Schema: public; Owner: "TMA_CAH_PG"
 --
 
 ALTER TABLE ONLY white_cards
@@ -5805,7 +5808,7 @@ ALTER TABLE ONLY white_cards
 
 --
 -- TOC entry 2069 (class 2606 OID 17773)
--- Name: card_set_black_card fk513da45c3166b76a; Type: FK CONSTRAINT; Schema: public; Owner: TMA_CAH_PG
+-- Name: card_set_black_card fk513da45c3166b76a; Type: FK CONSTRAINT; Schema: public; Owner: "TMA_CAH_PG"
 --
 
 ALTER TABLE ONLY card_set_black_card
@@ -5814,7 +5817,7 @@ ALTER TABLE ONLY card_set_black_card
 
 --
 -- TOC entry 2068 (class 2606 OID 17768)
--- Name: card_set_black_card fk513da45c985dacea; Type: FK CONSTRAINT; Schema: public; Owner: TMA_CAH_PG
+-- Name: card_set_black_card fk513da45c985dacea; Type: FK CONSTRAINT; Schema: public; Owner: "TMA_CAH_PG"
 --
 
 ALTER TABLE ONLY card_set_black_card
@@ -5823,7 +5826,7 @@ ALTER TABLE ONLY card_set_black_card
 
 --
 -- TOC entry 2071 (class 2606 OID 17783)
--- Name: card_set_white_card fkc248727257c340be; Type: FK CONSTRAINT; Schema: public; Owner: TMA_CAH_PG
+-- Name: card_set_white_card fkc248727257c340be; Type: FK CONSTRAINT; Schema: public; Owner: "TMA_CAH_PG"
 --
 
 ALTER TABLE ONLY card_set_white_card
@@ -5832,7 +5835,7 @@ ALTER TABLE ONLY card_set_white_card
 
 --
 -- TOC entry 2070 (class 2606 OID 17778)
--- Name: card_set_white_card fkc2487272985dacea; Type: FK CONSTRAINT; Schema: public; Owner: TMA_CAH_PG
+-- Name: card_set_white_card fkc2487272985dacea; Type: FK CONSTRAINT; Schema: public; Owner: "TMA_CAH_PG"
 --
 
 ALTER TABLE ONLY card_set_white_card
