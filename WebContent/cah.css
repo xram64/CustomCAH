@@ -49,11 +49,11 @@
 
 #index_content_start {
   background-color: #302247;
-    color: #fff;
-    font-size: 22px;
-    font-weight: 600;
-    padding: 0.4rem 0.9rem;
-    border-radius: 4px;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 600;
+  padding: 0.4rem 0.9rem;
+  border-radius: 4px;
 }
 
 #gamebody {
@@ -150,6 +150,19 @@ a:active {
 
 #menubar_right {
   float: right;
+  font-size: 13pt;
+}
+
+.menubar_input {
+  background-color: #302247;
+  color: #fff;
+  font-size: 14px;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+}
+
+.menubar_filterbox {
+  margin-left: 2rem;
 }
 
 #nickbox {

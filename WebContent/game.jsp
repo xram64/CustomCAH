@@ -104,14 +104,14 @@ boolean allowBlankCards = injector.getInstance(Key.get(new TypeLiteral<Boolean>(
 <div id="canvas" class="hide">
   <div id="menubar">
     <div id="menubar_left">
-      <input type="button" id="refresh_games" class="hide" value="Refresh Games" />
-      <input type="button" id="create_game" class="hide" value="Create Game" />
-      <input type="text" id="filter_games" class="hide" placeholder="Filter games by keyword"
+      <input class="menubar_input" type="button" id="refresh_games" class="hide" value="Refresh Games" />
+      <input class="menubar_input" type="button" id="create_game" class="hide" value="Create Game" />
+      <input class="menubar_input menubar_filterbox" type="text" id="filter_games" class="hide" placeholder="Filter games by keyword"
           data-lpignore="true"/>
 
-      <input type="button" id="leave_game" class="hide" value="Leave Game" />
-      <input type="button" id="start_game" class="hide" value="Start Game" />
-      <input type="button" id="stop_game" class="hide" value="Stop Game" />
+      <input class="menubar_input" type="button" id="leave_game" class="hide" value="Leave Game" />
+      <input class="menubar_input" type="button" id="start_game" class="hide" value="Start Game" />
+      <input class="menubar_input" type="button" id="stop_game" class="hide" value="Stop Game" />
     </div>
     <div id="menubar_right">
       Current timer duration: <span id="current_timer">0</span> seconds
