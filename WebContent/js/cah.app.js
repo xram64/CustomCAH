@@ -399,7 +399,7 @@ function app_resize() {
   $("#tabs").width(chatWidth + 'px');
   var bottomHeight = $(window).height() - $("#main").height() - $("#menubar").height() - 29;
   $("#bottom").height(bottomHeight);
-  $("#info_area").height(bottomHeight);
+  $("#info_area").height(bottomHeight) + 8;  // [MOD] Match top of info box with top of chat box
   $("#tabs").height(bottomHeight);
   $("#tab-preferences").height(bottomHeight - 45);
   $("#tab-gamelist-filters").height(bottomHeight - 45);

@@ -362,9 +362,9 @@ boolean allowBlankCards = injector.getInstance(Key.get(new TypeLiteral<Boolean>(
 <div class="scoreboard hide" style="height: 215px;">
 	<div id="scorecard_template" class="scorecard" tabindex="0">
 	  <span class="scorecard_player">PlayerName</span>
-	  <div class="clear"></div>
+	  <%-- <div class="clear"></div> --%>
 	  <span class="scorecard_points"><span class="scorecard_score">0</span> <span class="scorecard_point_title">Point<span class="scorecard_s">s</span></span></span>
-	  <span class="scorecard_status_wrapper">(<span class="scorecard_status">Status</span>)</span>
+	  <span class="scorecard_status_wrapper"><span class="scorecard_status">Status</span></span>
 	</div>
 </div>
 
