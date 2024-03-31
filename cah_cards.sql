@@ -148,7 +148,7 @@ COPY black_cards (id, draw, pick, text, watermark) FROM stdin;
 1	0	1	Here is the church Here is the steeple Open the doors And there is ____.	US
 3	0	1	50% of all marriages end in ____.	US
 4	0	1	As the mom of five rambunctious boys, I'm no stranger to ____.	US
-6	0	1	This is the way the world ends This is the way the world ends Not with a bang but with ____.	US
+6	0	1	This is the way the world ends. Not with a bang, but with ____.	US
 7	0	1	After four platinum albums and three Grammys, it's time to get back to my roots, to what inspired me to make music in the first place: ____.	US
 9	0	1	What's there a ton of in heaven?	US
 10	0	1	It's a pity that kids these days are all getting involved with ____.	US
@@ -190,7 +190,6 @@ COPY black_cards (id, draw, pick, text, watermark) FROM stdin;
 50	0	1	What would grandma find disturbing, yet oddly charming?	US
 51	0	1	What's that sound?	US
 52	0	1	What is Batman's guilty pleasure.	US
-54	0	1	This season at Steppenwolf, Samuel Beckett's classic existential play: Waiting for ____.	US
 55	0	1	A recent laboratory study shows that undergraduates have 50% less sex after being exposed to ____.	US
 56	0	2	Introducing the amazing superhero/sidekick duo! It's ____ and ____!	US
 57	0	1	Mabe she's born with it. Maybe it's ____.	US
@@ -235,7 +234,6 @@ COPY black_cards (id, draw, pick, text, watermark) FROM stdin;
 107	0	1	Bravo's new reality show feature eight washed-up celebrities living with ____.	CA
 108	0	1	Air Canada guidelines now prohibit ____ on airplanes.	CA
 110	0	1	Coming to Broadway this season, ____; The Musical.	CA
-111	0	1	This season at the Princess of Wales Theatre, Samuel Beckett's classic existential play: <i>Waiting for ____.</i>	CA
 112	0	1	Here is church Here is the steeple Open the doors And there is ____.	CA
 113	0	1	Penalty! ____: that's 5 minutes in the box!	CA
 114	0	1	Click Here for ____!!!	CA
@@ -278,7 +276,6 @@ COPY black_cards (id, draw, pick, text, watermark) FROM stdin;
 157	0	1	Hey guys, welcome to TGIF! Would you like to start the night off right with ____?	UK
 158	0	1	Coming to the West End this year, ____: The Musical.	UK
 159	0	2	In a world ravaged by ____, our only solace is ____.	UK
-160	0	1	This season at the Old Vic, Samuel Beckett's classic existential play: Waiting for ____.	UK
 161	0	1	Channel 5's new reality show feature eight washed-up celebrities living with ____.	UK
 162	0	1	I'm sorry, Sir, but I couldn't complete my homework because of ____.	UK
 164	0	2	Channel 4 presents "____: the Story of ____."	UK
@@ -288,7 +285,6 @@ COPY black_cards (id, draw, pick, text, watermark) FROM stdin;
 170	0	1	&#x2605;&#x2606;&#x2606;&#x2606;&#x2606; Do NOT go here! Found ____ in my Mongolian chicken!	AU
 171	0	1	What broke up the original Wiggles?	AU
 172	0	1	Today on <i>Jerry Springer:</i> "Help! My son is ____!"	AU
-173	0	1	This season at the Sydney Opera House, Samuel Beckett's classic existential play: <i>Waiting for ____.</i>	AU
 174	0	1	Crikey! I've never seen ____ like this before! Let's get a bit closer.	AU
 177	0	1	The school excursion was completely ruined by ____.	AU
 178	0	1	Channel 9 is pleased to present its new variety show, "Hey Hey It's ____."	AU
@@ -723,7 +719,6 @@ COPY card_set_black_card (card_set_id, black_card_id) FROM stdin;
 2	50
 2	51
 2	52
-2	54
 2	55
 2	56
 2	57
@@ -826,7 +821,6 @@ COPY card_set_black_card (card_set_id, black_card_id) FROM stdin;
 103	107
 103	108
 103	110
-103	111
 103	112
 103	113
 103	114
@@ -928,7 +922,6 @@ COPY card_set_black_card (card_set_id, black_card_id) FROM stdin;
 134	157
 134	158
 134	159
-134	160
 134	161
 134	162
 134	164
@@ -1006,7 +999,6 @@ COPY card_set_black_card (card_set_id, black_card_id) FROM stdin;
 166	170
 166	171
 166	172
-166	173
 166	174
 166	177
 166	178
@@ -1534,10 +1526,8 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 2	604
 2	605
 2	606
-2	607
 2	608
 2	609
-2	610
 2	611
 2	612
 2	613
@@ -1568,12 +1558,9 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 2	641
 2	642
 2	643
-2	644
 2	645
 2	646
 2	647
-2	649
-2	651
 2	652
 2	653
 2	654
@@ -1605,11 +1592,9 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 2	685
 2	686
 2	688
-2	689
 2	690
 2	691
 2	692
-2	693
 2	694
 2	696
 2	697
@@ -1642,7 +1627,6 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 2	729
 2	730
 2	731
-2	732
 2	734
 2	735
 2	736
@@ -1668,7 +1652,6 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 2	762
 2	766
 2	767
-2	768
 2	770
 2	771
 2	773
@@ -1779,18 +1762,15 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 2	913
 2	914
 2	915
-2	918
 2	920
 2	921
 2	922
 2	923
 2	924
 2	925
-2	926
 2	927
 2	931
 2	932
-2	933
 2	934
 2	935
 2	936
@@ -1844,8 +1824,6 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 2	1001
 2	1002
 2	1003
-2	1004
-2	1005
 2	1006
 2	1007
 2	1012
@@ -1927,9 +1905,7 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 103	603
 103	604
 103	606
-103	607
 103	609
-103	610
 103	611
 103	613
 103	614
@@ -1959,11 +1935,8 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 103	641
 103	642
 103	643
-103	644
 103	646
 103	647
-103	649
-103	651
 103	652
 103	653
 103	654
@@ -1994,11 +1967,9 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 103	685
 103	686
 103	688
-103	689
 103	690
 103	691
 103	692
-103	693
 103	694
 103	696
 103	697
@@ -2031,7 +2002,6 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 103	729
 103	730
 103	731
-103	732
 103	734
 103	735
 103	737
@@ -2055,7 +2025,6 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 103	762
 103	766
 103	767
-103	768
 103	770
 103	771
 103	773
@@ -2162,18 +2131,15 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 103	913
 103	914
 103	915
-103	918
 103	920
 103	921
 103	922
 103	923
 103	924
 103	925
-103	926
 103	927
 103	931
 103	932
-103	933
 103	934
 103	935
 103	936
@@ -2225,7 +2191,6 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 103	1001
 103	1002
 103	1003
-103	1005
 103	1006
 103	1007
 103	1012
@@ -2339,9 +2304,7 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 134	602
 134	603
 134	606
-134	607
 134	609
-134	610
 134	611
 134	614
 134	615
@@ -2368,10 +2331,7 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 134	641
 134	642
 134	643
-134	644
 134	647
-134	649
-134	651
 134	652
 134	653
 134	654
@@ -2399,11 +2359,9 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 134	685
 134	686
 134	688
-134	689
 134	690
 134	691
 134	692
-134	693
 134	697
 134	698
 134	699
@@ -2452,7 +2410,6 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 134	762
 134	766
 134	767
-134	768
 134	770
 134	771
 134	773
@@ -2546,7 +2503,6 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 134	913
 134	914
 134	915
-134	918
 134	920
 134	922
 134	923
@@ -2592,7 +2548,6 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 134	998
 134	1001
 134	1003
-134	1005
 134	1006
 134	1007
 134	1012
@@ -2706,9 +2661,7 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 166	602
 166	603
 166	606
-166	607
 166	609
-166	610
 166	611
 166	614
 166	615
@@ -2734,10 +2687,7 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 166	641
 166	642
 166	643
-166	644
 166	647
-166	649
-166	651
 166	652
 166	653
 166	654
@@ -2764,11 +2714,9 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 166	685
 166	686
 166	688
-166	689
 166	690
 166	691
 166	692
-166	693
 166	697
 166	698
 166	699
@@ -2817,7 +2765,6 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 166	762
 166	766
 166	767
-166	768
 166	770
 166	771
 166	773
@@ -2914,7 +2861,6 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 166	913
 166	914
 166	915
-166	918
 166	920
 166	922
 166	923
@@ -2962,7 +2908,6 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 166	997
 166	1001
 166	1003
-166	1005
 166	1006
 166	1007
 166	1012
@@ -3141,7 +3086,6 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 191	603
 191	606
 191	609
-191	610
 191	611
 191	613
 191	614
@@ -3165,7 +3109,6 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 191	642
 191	643
 191	647
-191	649
 191	652
 191	653
 191	654
@@ -3190,10 +3133,8 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 191	685
 191	686
 191	688
-191	689
 191	691
 191	692
-191	693
 191	697
 191	698
 191	699
@@ -3239,7 +3180,6 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 191	762
 191	766
 191	767
-191	768
 191	770
 191	771
 191	778
@@ -3316,16 +3256,13 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 191	912
 191	913
 191	915
-191	918
 191	920
 191	923
 191	924
 191	925
-191	926
 191	927
 191	931
 191	932
-191	933
 191	936
 191	937
 191	938
@@ -4351,6 +4288,8 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 9002	6086
 9000	6087
 9003	6087
+9000	6088
+9003	6088
 \.
 
 
@@ -4385,10 +4324,8 @@ COPY white_cards (id, text, watermark) FROM stdin;
 604	Smallpox blankets.	US
 605	J.D. Power and his associates.	US
 606	Seeing my father cry.	US
-607	Seppuku.	US
 608	Adderall.&reg;	US
 609	Hot people.	US
-610	Dead babies.	US
 611	Not reciprocating oral sex.	US
 612	50 mg of Zoloft daily.	US
 613	A bleached asshole.	US
@@ -4419,12 +4356,9 @@ COPY white_cards (id, text, watermark) FROM stdin;
 641	The penny whistle solo from "My Heart Will Go On."	US
 642	A fart so powerful that it wakes the giants from their thousand-year slumber.	US
 643	My genitals.	US
-644	Little boy penises.	US
 645	Punching a congressman in the face.	US
 646	Some god damn peace and quiet.	US
 647	BATMAN!	US
-649	Preteens.	US
-651	Smegma.	US
 652	A micropenis.	US
 653	My ugly face and bad personality.	US
 654	A good sniff.	US
@@ -4434,7 +4368,7 @@ COPY white_cards (id, text, watermark) FROM stdin;
 658	My cheating son-of-a-bitch husband.	US
 659	Fox News.	US
 660	Being a motherfucking sorcerer.	US
-662	Holding down a child and farting all over him.	US
+662	Holding down a child and farting all over them.	US
 664	Land mines.	US
 665	Centaurs.	US
 666	Seven dead and three in critical condition.	US
@@ -4456,16 +4390,14 @@ COPY white_cards (id, text, watermark) FROM stdin;
 685	Magnets.	US
 686	Touching a pug right on his penis.	US
 688	Spontaneous human combustion.	US
-689	Leprosy.	US
 690	Seething with quiet resentment.	US
 691	Explosions.	US
 692	Licking things to claim them as your own.	US
-693	Consensual sex.	US
 694	Getting married, having a few kids, buying some stuff, retiring to Florida, and dying.	US
 696	The Boy Scouts of America.	US
 697	Bananas.	US
 698	Masturbating.	US
-699	All the dues I've fucked.	US
+699	All the dudes I've fucked.	US
 700	Famine.	US
 702	Executing a hostage every hour.	US
 703	Running out of semen.	US
@@ -4493,7 +4425,6 @@ COPY white_cards (id, text, watermark) FROM stdin;
 729	Powerful thighs.	US
 730	Men.	US
 731	Farting and walking away.	US
-732	Pedophiles.	US
 734	Peeing a little bit.	US
 735	Viagra.&reg;	US
 736	Ronald Reagan.	US
@@ -4519,7 +4450,6 @@ COPY white_cards (id, text, watermark) FROM stdin;
 762	Getting drugs off the street and into my body.	US
 766	Mouth herpes.	US
 767	Seeing what happens when you lock people in a room with hungry seagulls.	US
-768	72 virgins.	US
 770	Getting cummed on.	US
 771	Poor life choices.	US
 773	Opposable thumbs.	US
@@ -4630,18 +4560,15 @@ COPY white_cards (id, text, watermark) FROM stdin;
 913	Strong female characters.	US
 914	Dry heaving.	US
 915	Tentacle porn.	US
-918	Teenage pregnancy.	US
 920	Saying "I love you."	US
 921	Doin' it in the butt.	US
 922	Synergistic management solutions.	US
 923	50,000 volts straight to the nipples.	US
 924	Self-loathing.	US
 925	Erectile dysfunction.	US
-926	Poopy diapers.	US
 927	Friction.	US
 931	Drinking out of the toilet and eating garbage.	US
 932	Fragile masculinity.	US
-933	Kissing grandma on the forehead and turning off her life support.	US
 934	Rap music.	US
 935	GoGurt.&reg;	US
 936	The true meaning of Christmas.	US
@@ -4695,8 +4622,6 @@ COPY white_cards (id, text, watermark) FROM stdin;
 1001	Chainsaws for hands.	US
 1002	Getting naked and watching Nickelodeon.	US
 1003	Fear itself.	US
-1004	The Trail of Tears.	US
-1005	Swooping.	US
 1006	Ghosts.	US
 1007	My neck, my back, my pussy, and my crack.	US
 1012	One titty hanging out.	US
@@ -5749,6 +5674,7 @@ COPY white_cards (id, text, watermark) FROM stdin;
 6085	Unmuting your mic to eat chips and then muting to call out raid mechanics.	TMA
 6086	Authoritatively whispering <i>"You can cum now"</i>.	TMA
 6087	Cranking my hog.	TMA
+6088	Penis music.	TMA
 \.
 
 
