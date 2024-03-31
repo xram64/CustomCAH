@@ -47,8 +47,9 @@ SET default_tablespace = '';
 
 SET default_with_oids = false;
 
--- Drop existing `black_cards` table (only this table exists after container starts).  # MOD #
-DROP TABLE black_cards;
+-- Flush database before importing the updated card list.  # MOD #
+DROP DATABASE "TMACAH";
+CREATE DATABASE "TMACAH";
 
 --
 -- TOC entry 185 (class 1259 OID 17734)
