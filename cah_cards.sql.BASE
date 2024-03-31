@@ -47,10 +47,6 @@ SET default_tablespace = '';
 
 SET default_with_oids = false;
 
--- Flush database before importing the updated card list.  # MOD #
-DROP DATABASE "TMACAH";
-CREATE DATABASE "TMACAH";
-
 --
 -- TOC entry 185 (class 1259 OID 17734)
 -- Name: black_cards; Type: TABLE; Schema: public; Owner: "TMA_CAH_PG"
