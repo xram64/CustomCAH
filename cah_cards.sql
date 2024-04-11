@@ -587,7 +587,7 @@ COPY black_cards (id, draw, pick, text, watermark) FROM stdin;
 4028	0	1	What they put in #i-put-it-in-discord-go-look.	TMA
 4029	0	1	Why Abi is yelling "DAAAAAD!" this time.	TMA
 4030	0	1	No bullshit, no bigotry, no edgelords, but we DO have ____.	TMA
-4031	0	1	____ for the __[<i>same card</i>]__ God.	TMA
+4031	0	1	____ for the [<i>same card</i>] God.	TMA
 4032	0	1	My Spotify Daylist right now is called ____.	TMA
 4033	0	1	I don't have friends, I got ____.	TMA
 4034	0	1	The Midnight Amendments' secret 4th rule concerns ____.	TMA
@@ -603,8 +603,10 @@ COPY black_cards (id, draw, pick, text, watermark) FROM stdin;
 4044	0	1	The real ____ is the friends we made along the way.	TMA
 4045	0	1	The secret to getting Sylvanas to step on your neck.	TMA
 4046	0	1	____. Do it, you won't!	TMA
-4047	0	1	Who's a little ____? Oooo, __[<i>same card</i>]__.	TMA
+4047	0	1	Who's a little ____? Oooo, [<i>same card</i>].	TMA
 4048	0	1	____? MMMMMM, YOU LOVE IT.	TMA
+4049	0	1	This is how democracy dies, with ____.	TMA
+4050	0	1	Ah yes, the two genders: ____ and ____.	TMA
 \.
 
 
@@ -1449,6 +1451,8 @@ COPY card_set_black_card (card_set_id, black_card_id) FROM stdin;
 9000	4048
 9002	4048
 9003	4048
+9003	4049
+9003	4050
 \.
 
 
@@ -5669,7 +5673,7 @@ COPY white_cards (id, text, watermark) FROM stdin;
 6083	Mansplaining a raid callout 10 seconds after the femme raid leader said the same thing.	TMA
 6084	Close-mic Scriv ASMR.	TMA
 6085	Unmuting your mic to eat chips and then muting to call out raid mechanics.	TMA
-6086	Authoritatively whispering <i>"You can cum now"</i>.	TMA
+6086	Authoritatively whispering <i>"You can cum now"</i> into the mic.	TMA
 6087	Cranking my hog.	TMA
 6088	Penis music.	TMA
 \.
