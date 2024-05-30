@@ -80,25 +80,25 @@ boolean allowBlankCards = injector.getInstance(Key.get(new TypeLiteral<Boolean>(
   <link rel="stylesheet" type="text/css" href="jquery-ui.min.css" media="screen" />
   <link rel="icon" type="image/x-icon" href="tma/favicon.ico">
   <link rel="icon" type="image/png" href="tma/favicon.png"/>
+  <link href="https://fonts.cdnfonts.com/css/noto-sans?styles=19843,19842" rel="stylesheet">
 </head>
 
 <body id="gamebody">
 
 <div id="welcome">
+  <div id="welcome_content">
 
-  <h1 tabindex="0">
-    TMA CAH
-  </h1>
-  <h3>A <a href="http://cardsagainsthumanity.com/">Cards Against Humanity</a> clone.</h3>
+    <h1 tabindex="0" id="welcome_title">TMA CAH</h1>
+    <h4 id="welcome_subtitle">A <a href="http://cardsagainsthumanity.com/">Cards Against Humanity</a> clone</h4>
 
-  <div id="nickbox">
-    <label for="nickname">Name:</label>
-    <input type="text" id="nickname" value="" maxlength="30" role="textbox"
-        aria-label="Enter your nickname." data-lpignore="true" />
-    <input type="button" id="nicknameconfirm" value="Set" />
-    <span id="nickbox_error" class="error"></span>
+    <div id="welcome_nickname">
+      <label for="welcome_nickname_text">Name:</label>
+      <input type="text" id="welcome_nickname_text" value="" maxlength="30" role="textbox" aria-label="Enter your nickname." data-lpignore="true" />
+      <input type="button" id="welcome_nickname_confirm" value="Enter" />
+      <span id="welcome_nickname_error" class="error"></span>
+    </div>
+
   </div>
-
 </div>
 
 <div id="canvas" class="hide">
@@ -354,7 +354,7 @@ boolean allowBlankCards = injector.getInstance(Key.get(new TypeLiteral<Boolean>(
 <!-- Template for scoreboard container. Holder for design. -->
 <div style="height: 215px; border: 1px solid black;" class="hide">
 	<div id="scoreboard_template" class="scoreboard">
-    <div class="game_message" tabindex="0">Scoreboard</div>
+    <div class="game_message" id="scoreboard_title" tabindex="0">Scoreboard</div>
 	</div>
 </div>
 

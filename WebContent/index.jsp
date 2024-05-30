@@ -38,11 +38,15 @@ to, for instance, display the number of connected players.
   <link rel="stylesheet" type="text/css" href="cah.css" media="screen" />
   <link rel="icon" type="image/x-icon" href="tma/favicon.ico">
   <link rel="icon" type="image/png" href="tma/favicon.png"/>
+
+  <%-- Redirect immediately to `/game.jsp` --%>
+  <meta http-equiv="refresh" content="0;url=game.jsp" />
 </head>
 
 <body id="indexbody">
 
 <div id="index_content">
+
   <h1 id="index_content_title">TMA CAH</h1>
   <h4 id="index_content_subtitle">A Cards Against Humanity clone</h4>
 

@@ -265,6 +265,7 @@ cah.Game = function(id) {
    * @private
    */
   this.roundCardSmallSize_ = 236;
+  // this.roundCardSmallSize_ = 236;  // Default
 
   /**
    * Size for round cards when zoomed in.
@@ -273,6 +274,7 @@ cah.Game = function(id) {
    * @private
    */
   this.roundCardLargeSize_ = 236;
+  // this.roundCardLargeSize_ = 236;  // Default
 
   /**
    * Whether we are showing the result of the last round.
@@ -684,6 +686,10 @@ cah.Game.prototype.resizeHandCards_ = function() {
     cardLargeScale : this.handCardLargeScale_,
     maxSmallSize : 150,
     minSmallSize : 66,
+
+    // Divide the width of the `.game_hand_cards` div (the player's white card hand)
+    //   by the number of `.card_holder` elements (individual cards) in the current hand to get a
+    //   maximum "fit" size that will make sure all cards fit in one row of the player's hand div.
     smallSize : function() {
       return ($(".game_hand_cards", this.element_).width() - 20)
           / ($(".game_hand_cards .card_holder", this.element_).length + 1);
@@ -735,6 +741,11 @@ cah.Game.prototype.resizeRoundCards_ = function() {
  * @private
  */
 cah.Game.prototype.resizeCardHelper_ = function(data) {
+
+  // These effectively override the sizes/scales set in `data` and determine the max zoomed size of cards.
+  var baseMaxSize = 236;   // Default: 236
+  var baseMaxScale = 1.5;  // Default: 1.8
+
   var elems = $(data.class + " .card_holder", this.element_);
 
   data.cardSmallSize = data.smallSize();
@@ -744,13 +755,13 @@ cah.Game.prototype.resizeCardHelper_ = function(data) {
   if (data.cardSmallSize < data.minSmallSize) {
     data.cardSmallSize = data.minSmallSize;
   }
-  var maxScale = 236 / data.cardSmallSize;
-  var scale = maxScale < 1.8 ? maxScale : 1.8;
+  var maxScale = baseMaxSize / data.cardSmallSize;
+  var scale = maxScale < baseMaxScale ? maxScale : baseMaxScale;
   data.cardLargeSize = data.cardSmallSize * scale;
-  if (data.cardLargeSize > 236) {
-    data.cardLargeSize = 236;
+  if (data.cardLargeSize > baseMaxSize) {
+    data.cardLargeSize = baseMaxSize;
   }
-  data.cardSmallScale = data.cardSmallSize / 236;
+  data.cardSmallScale = data.cardSmallSize / baseMaxSize;
   data.cardLargeScale = data.cardSmallScale * scale;
   if (data.cardLargeScale > maxScale) {
     data.cardLargeScale = maxScale;

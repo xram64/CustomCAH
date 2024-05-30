@@ -21,56 +21,13 @@
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#indexbody {
-  overflow: hidden;
-  background-image: url("tma/tma_banner.png");
-  background-size: cover;
-  background-attachment: fixed;
-}
-
-#index_content {
-  text-align: center;
-  width: 40%;
-  margin: auto;
-  margin-top: 3rem;
-  border: solid #ffffff60;
-  border-radius: 12px;
-  box-shadow: 0px 0px 10px 0px #ffffffa0;
-  background-color: #ffffff58;
-}
-
-#index_content_title {
-  color: #302247;
-}
-
-#index_content_subtitle {
-  color: #302247;
-}
-
-#index_content_start {
-  background-color: #302247;
-  color: #fff;
-  font-size: 22px;
-  font-weight: 600;
-  padding: 0.4rem 0.9rem;
-  border-radius: 4px;
-}
-
-#gamebody {
-  overflow: hidden;
-}
-
 body {
   min-height: 640px;
-  background: #efedf1;
+  background: #f8f7f9;
   color: #000;
   font-family: Lucida Sans, Comic Sans MS;
   font-size: 20px;
   margin: 0;
-}
-
-.card, #game_list {
-  font-family: "helvetica neue", helvetica, Arial, sans-serif;
 }
 
 h1 {
@@ -87,21 +44,37 @@ h3 {
 
 h4 {
   margin: 0 0 .25em;
+  font-weight: 400;
+  font-style: italic;
 }
 
 a {
   text-decoration: none;
-  color: #1d4897;
+  color: #3f2963;
 }
 a:visited {
-  color: #0a3380;
+  color: #382458;
 }
 a:hover {
-  color: #225ece;
+  color: #6f1eb4;
 }
 a:active {
-  color: #6f00d6;
+  color: #6a20af;
 }
+
+#main {
+  min-height: 400px;
+  height: 75vh;
+  padding: .5em;
+}
+
+#canvas {
+  height: 533px;
+  overflow: none;
+  position: relative;
+  width: 100%;
+}
+
 
 /*
 #browser {
@@ -147,17 +120,25 @@ a:active {
 #menubar_left {
   float: left;
 }
+#menubar_left input[type="button"] {
+  background-color: #302247;
+  color: #fff;
+  font-size: 14px;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 700;
+}
 
 #menubar_right {
   float: right;
   font-size: 13pt;
+  margin-top: 2px;
 }
-
-.menubar_input {
+#menubar_right input[type="button"] {
   background-color: #302247;
   color: #fff;
-  font-size: 14px;
-  padding: 0.2rem 0.4rem;
+  font-size: small;
+  padding: 0.1rem 0.5rem;
   border-radius: 4px;
 }
 
@@ -165,29 +146,122 @@ a:active {
   margin-left: 2rem;
 }
 
-#nickbox {
-  border: 1px solid black;
-  display: inline;
-  padding: 5px;
+
+/*  <<\  _________  />>  */
+/*  <<| || Index || |>>  */
+/*  <</  """""""""  \>>  */
+
+#indexbody {
+  overflow: hidden;
+  background-image: url("tma/tma_banner.png");
+  background-size: cover;
+  background-attachment: fixed;
 }
 
-#canvas {
-  height: 533px;
-  overflow: none;
-  position: relative;
-  width: 100%;
+#index_content {
+  text-align: center;
+  width: 40%;
+  margin: auto;
+  margin-top: 3rem;
+  border: solid #ffffff60;
+  border-radius: 12px;
+  box-shadow: 0px 0px 10px 0px #ffffffa0;
+  background-color: #ffffff58;
 }
 
-#main {
-  min-height: 400px;
-  height: 75vh;
-  padding: .5em;
+#index_content_title {
+  color: #302247;
 }
+
+#index_content_subtitle {
+  color: #302247;
+}
+
+#index_content_start {
+  background-color: #302247;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 600;
+  padding: 0.4rem 0.9rem;
+  border-radius: 4px;
+}
+
+
+/*  <<\  ___________  />>  */
+/*  <<| || Welcome || |>>  */
+/*  <</  """""""""""  \>>  */
 
 #welcome {
+  overflow: hidden;
+  background-image: url("tma/tma_banner.png");
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 100vh;
   padding: 1em;
 }
 
+#welcome_content {
+  font-family: 'Noto Sans', sans-serif;
+  color: #302247;
+  text-align: center;
+  width: 40%;
+  margin: auto;
+  margin-top: 3rem;
+  border: solid #ffffff60;
+  border-radius: 12px;
+  box-shadow: 0px 0px 10px 0px #ffffffa0;
+  background-color: #ffffff58;
+}
+
+#welcome_nickname {
+  padding: 4px;
+  margin: 2rem 0 0.5rem 0;
+}
+
+#welcome_title {
+  color: #302247;
+}
+
+#welcome_subtitle {
+  font-weight: 400;
+  font-style: italic;
+}
+
+#welcome_nickname_confirm {
+  display: block;
+  background-color: #302247;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 600;
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  margin: 1rem auto 0 auto;
+}
+
+#welcome_nickname_text {
+  margin-left: 2px;
+  padding: 0.2rem 0.5rem;
+  max-width: 12rem;
+  font-size: large;
+  background-color: #b4accc;
+  border: 1.5px solid #4c4062;
+  border-radius: 2px;
+  box-shadow: inset 0px 0px 8px -1px #36254b8a;
+}
+
+
+
+/*  <<\  ________  />>  */
+/*  <<| || Game || |>>  */
+/*  <</  """"""""  \>>  */
+
+#gamebody {
+  overflow: hidden;
+}
+
+.card, #game_list {
+  font-family: "helvetica neue", helvetica, Arial, sans-serif;
+}
 
 #game_list {
   height: 100%;
@@ -259,6 +333,7 @@ a:active {
   /* top: 543px; */
   bottom: 2px;
   min-height: 100px;
+  z-index: -2;
 }
 
 #info_area {
@@ -278,7 +353,15 @@ a:active {
   position: absolute;
   bottom: 0px;
   /* right: 14px; */
-  right: -5px;
+  right: 2px;
+  border: 1px solid #999;
+
+  /* Override `.ui-corner-all` class added to the #tabs pane. */
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+
+  /* Override `.ui-tabs` class added to the #tabs pane. */
+  padding: 3px 6px !important;
 }
 
 #tabs .ui-widget {
@@ -331,15 +414,15 @@ a:active {
 }
 
 .chat {  /* Chat panel - Entry textbox */
-  border: 1px solid black;
+  border: 1px solid #00000080;
   left: -1px;
   bottom: 0px;
   height: 17px;
   position: absolute;
-  padding: 0px;
+  padding: 0px 4px;
   width: 90%;
   font-family: serif;
-  font-size: 12pt;
+  font-size: 12pt !important;
 }
 
 .chat_submit {  /* Chat panel - Entry textbox submit button */
@@ -348,9 +431,10 @@ a:active {
   position: absolute;
   right: -1px;
   bottom: -1px;
-  margin: 0px;
   padding: 0px;
-  font-size: 0.7em!important;
+  font-size: 0.9rem !important;
+  background-color: #302247;
+  color: #fff;
 }
 
 span.error {
@@ -417,28 +501,32 @@ span.debug, span.admin {
 }
 
 .game_hand {
-  position: absolute;
+  position: relative;
   bottom: 0px;
   left: 0px;
   right: 0px;
-  height: 30%;
+  height: 35%;
+  z-index: 1;
 }
 
 .game_hand_filter {
   height: 100%;
   position: relative;
-  background: rgba(192, 192, 192, .5);
+  background: rgba(192, 192, 192, 0.4);
   z-index: 100;
   text-align: center;
 }
 
 .game_hand_filter_text {
-  position: absolute;
-  top: 50%;
+  font-family: 'Noto Sans';
+  position: relative;
+  top: 25%;
   font-size: 300%;
-  margin-top: -30px;
-  background:#eee;
-  padding:.25em;
+  /* margin-top: -30px; */
+  padding: 0.5rem 20%;
+  background: #0a86a252;
+  border-radius: 6px;
+  border: 1px groove #20202080;
 }
 
 .game_hand_cards {
@@ -451,11 +539,24 @@ span.debug, span.admin {
 }
 
 .game_hand_cards .card {
-  cursor: pointer;
+  /* cursor: pointer; */
+  cursor: cell;
 }
 
 .game_top {
-  padding: 5px;
+  margin: 0px 10px;
+  padding: 4px 4px;
+  font-size: large;
+  box-shadow: 0px 0px 2px 1px #33333380;
+}
+
+.game_top input[type="button"] {
+  background-color: #302247;
+  color: #fff;
+  font-size: small;
+  padding: 0.1rem 0.5rem;
+  border-radius: 4px;
+  margin: 0px 2px;
 }
 
 .game_menu_bar {
@@ -463,27 +564,54 @@ span.debug, span.admin {
 }
 
 .game_message {
-  font-size: 120%;
+  font-size: 110%;
+  font-weight: bold;
+}
+
+#scoreboard_title {
+  margin-left: 6px;
+  font-size: large;
   font-weight: bold;
 }
 
 .game_black_card_wrapper {
   width: 232px;
   float: left;
+  font-size: small;
 }
 
 .game_black_card {
   width: 232px;
   height: 232px;
-  margin-top: 15px;
+  margin-top: 5px;
 }
 
 .confirm_card {
+  position: relative;
   float: left;
-  /* margin-top: 10px; */
   width: 100%;
-  z-index: 500;
-  margin-top: -3px;
+  z-index: 600;
+  cursor: pointer;
+  margin-top: 4px;
+  padding: 0.4rem 0.4rem;
+  font-family: 'Noto Sans';
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  background-color: #302247;
+  border: 1px solid #302247;
+  border-radius: 4px;
+  box-shadow: inset 0px 0px 4px 0px #fffffff0;
+}
+.confirm_card:hover {
+  box-shadow: inset 0px 0px 6px 0px #ffffff;
+}
+.confirm_card:active {
+  background-color: #554176;
+}
+.confirm_card:disabled {
+  background-color: #686270;
+  box-shadow: none;
 }
 
 .game_left_side {
@@ -524,13 +652,16 @@ span.debug, span.admin {
 .game_right_side_box {
   height: 60%;
   margin: 10px;
+  font-size: small;
 }
 
 .game_right_side_cards {
-  margin-top: 15px;
+  margin-top: 5px;
   min-width: 600px;
-  cursor: pointer;
-  z-index: 200;
+  /* cursor: pointer; */
+  cursor: grab;
+  position: relative;
+  z-index: 0;
 }
 
 .game_right_side_cards .card_holder, .game_white_cards_binder {
@@ -563,6 +694,12 @@ span.debug, span.admin {
   height: 100%;
   position: absolute;
   overflow-y: scroll;
+}
+
+#scoreboard_title {
+  margin-left: 6px;
+  font-size: large;
+  font-weight: bold;
 }
 
 .scorecard {
@@ -602,7 +739,7 @@ span.debug, span.admin {
 
 .selected {
   color: #fff;
-  background: #3c7fb1 !important;
+  background: #2586a5 !important;
 }
 
 .logo {
@@ -734,8 +871,10 @@ span.debug, span.admin {
 }
 
 .checkbox {
-  margin-right: 4px;
+  margin-top: 2px;
+  margin-right: 16px;
   white-space: nowrap;
+  font-size: smaller;
 }
 
 .checkbox input {

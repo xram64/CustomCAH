@@ -470,8 +470,6 @@ COPY black_cards (id, draw, pick, text, watermark) FROM stdin;
 407	0	1	What keeps me warm during the cold, cold winter?	❄2012
 409	0	1	Every Christmas, my uncle gets drunk and tells the story about ____.	❄2012
 412	0	1	On the third day of Christmas, my true love gave to me: three French hens, two turtle doves, and ____.	❄2012
-413	0	1	When you go to the polls on Tuesday, remember: a vote for me is a vote for ____.	V4HIL
-418	0	1	It's 3 AM. The red phone rings. It's ____. Who do you want answering?	V4 45
 429	0	1	My memory of last night is pretty hazy. I remember ____ and that's pretty much it.	COLEG
 431	0	1	Pledges! Time to prove you're Delta Phi material. Chug this beer, take off your shirts, and get ready for ____.	COLEG
 432	0	1	All classes today are canceled due to ____.	COLEG
@@ -627,8 +625,6 @@ COPY card_set (id, active, base_deck, description, name, weight) FROM stdin;
 342	t	f	Green Box Expansion	Green Box Expansion	10
 398	t	f	90s Nostalgia Pack	90s Nostalgia Pack	30
 406	t	f	Holiday Pack 2012	Holiday Pack 2012	80
-414	t	f	Vote for Hillary Pack	Vote for Hillary Pack	70
-417	t	f	Vote for Trump Pack	Vote for Trump Pack	71
 421	t	f	House of Cards Pack	House of Cards Pack	30
 430	t	f	College Pack	College Pack	30
 437	t	f	Holiday Pack 2013	Holiday Pack 2013	80
@@ -646,7 +642,6 @@ COPY card_set (id, active, base_deck, description, name, weight) FROM stdin;
 499	t	f	Jew Pack	Jew Pack	30
 505	t	f	PAX Prime 2013 Pack	PAX Prime 2013 Pack	105
 510	t	f	Period Pack	Period Pack	30
-517	t	f	Post-Trump Pack	Post-Trump Pack	72
 521	t	f	Reject Pack	Reject Pack	30
 530	t	f	Retail Pack	Retail Pack	30
 533	t	f	Sci-Fi Pack	Sci-Fi Pack	30
@@ -1265,8 +1260,6 @@ COPY card_set_black_card (card_set_id, black_card_id) FROM stdin;
 406	407
 406	409
 406	412
-414	413
-417	418
 430	432
 430	433
 430	434
@@ -1451,7 +1444,9 @@ COPY card_set_black_card (card_set_id, black_card_id) FROM stdin;
 9000	4048
 9002	4048
 9003	4048
+9000	4049
 9003	4049
+9000	4050
 9003	4050
 \.
 
@@ -3945,7 +3940,6 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 505	2362
 505	2363
 505	2364
-510	2435
 510	2438
 510	2439
 510	2440
@@ -3960,15 +3954,6 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 510	2453
 510	2454
 510	2458
-517	2432
-517	2434
-517	2415
-517	2416
-517	2420
-517	2421
-517	2424
-517	2426
-517	2430
 521	2464
 521	2465
 521	2466
@@ -4291,6 +4276,9 @@ COPY card_set_white_card (card_set_id, white_card_id) FROM stdin;
 9003	6087
 9000	6088
 9003	6088
+9000	6089
+9003	6089
+9000	6090
 \.
 
 
@@ -5462,16 +5450,6 @@ COPY white_cards (id, text, watermark) FROM stdin;
 2404	A lifetime of internalized guilt.	JEW
 2410	A headache that's definitely cancer.	JEW
 2411	A big brain full of facts and sadness.	JEW
-2415	Roaming through a wasteland of windblown trash and deserted highways.	PST45
-2416	Drinking urine to survive.	PST45
-2420	Trying to remember what music was.	PST45
-2421	Casual dismissiveness.	PST45
-2424	Mild amusement.	PST45
-2426	Rage.	PST45
-2430	Trying to wake up from this nightmare.	PST45
-2432	Nuclear winter.	PST45
-2434	A gnawing sense of dread.	PST45
-2435	Period globs.	.
 2438	Playing with my pussy while I watch TV.	.
 2439	An emotionally draining friendship.	.
 2440	Post-partum depression.	.
@@ -5676,6 +5654,8 @@ COPY white_cards (id, text, watermark) FROM stdin;
 6086	Authoritatively whispering <i>"You can cum now"</i> into the mic.	TMA
 6087	Cranking my hog.	TMA
 6088	Penis music.	TMA
+6089	Premium top-tier velour-lined pussy.	TMA
+6090	Church jorts.	TMA
 \.
 
 

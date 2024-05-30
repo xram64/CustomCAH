@@ -37,11 +37,11 @@ $(document).ready(function() {
   cah.Ajax.build(cah.$.AjaxOperation.FIRST_LOAD).run();
 
   if ($.cookie("nickname")) {
-    $("#nickname").val($.cookie("nickname"));
+    $("#welcome_nickname_text").val($.cookie("nickname"));
   }
-  $("#nicknameconfirm").click(nicknameconfirm_click);
-  $("#nickname").keyup(nickname_keyup);
-  $("#nickname").focus();
+  $("#welcome_nickname_confirm").click(nicknameconfirm_click);
+  $("#welcome_nickname_text").keyup(nickname_keyup);
+  $("#welcome_nickname_text").focus();
   if (document.location.protocol == "https:" || cah.INSECURE_ID_ALLOWED) {
     $("#idcode").prop("disabled", false);
     // re-use existing handler
@@ -89,7 +89,7 @@ $(window).blur(function() {
  */
 function nickname_keyup(e) {
   if (e.which == 13) {
-    $("#nicknameconfirm").click();
+    $("#welcome_nickname_confirm").click();
     e.preventDefault();
   }
 }
@@ -98,7 +98,7 @@ function nickname_keyup(e) {
  * Handle a click event on the set nickname box. Try to register with the server.
  */
 function nicknameconfirm_click() {
-  var nickname = $.trim($("#nickname").val());
+  var nickname = $.trim($("#welcome_nickname_text").val());
   cah.setCookie("nickname", nickname);
   var builder = cah.Ajax.build(cah.$.AjaxOperation.REGISTER).withNickname(nickname);
   var idCode = $.trim($("#idcode").val());
@@ -395,7 +395,7 @@ function app_resize() {
   var chat = $(".chat", $("#tab-global"));
   var log = cah.log.log;
 
-  var chatWidth = $("#canvas").width() - 257;
+  var chatWidth = $("#canvas").width() - 267;  // [MOD] Changed from `257` to `267`
   $("#tabs").width(chatWidth + 'px');
   var bottomHeight = $(window).height() - $("#main").height() - $("#menubar").height() - 29;
   $("#bottom").height(bottomHeight);
@@ -422,11 +422,11 @@ function app_resize() {
 }
 
 function do_app_resize(chatElement, logElement) {
-  var chatWidth = $("#canvas").width() - 257;
-  logElement.width((chatWidth + 2) + 'px');
-  chatElement.width((chatWidth - 42) + 'px');
+  var chatWidth = $("#canvas").width() - 267;  // [MOD] Changed from `257` to `267`
+  logElement.width((chatWidth + 8) + 'px');  // [MOD] Changed from `+ 2` to `+ 8` to better fit chat log text
+  chatElement.width((chatWidth - 38) + 'px');  // [MOD] Changed from `- 42` to `- 38` to better fit chat entry box
   var bottomHeight = $(window).height() - $("#main").height() - $("#menubar").height() - 29;
-  logElement.height(bottomHeight - chatElement.height() - 2);  // [MOD] Changed from `- 40` to `- 2`
+  logElement.height(bottomHeight - chatElement.height() - 0);  // [MOD] Changed from `- 40` to `- 0`
 }
 
 cah.logUserPermalinks = function(data) {
