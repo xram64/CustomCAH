@@ -32,18 +32,22 @@ body {
 
 h1 {
   margin: .25em 0 .25em 0;
+  font-size: 40px;
 }
 
 h2 {
   margin: 0 0 .25em;
+  font-size: 32px;
 }
 
 h3 {
   margin: 0 0 .25em;
+  font-size: 24px;
 }
 
 h4 {
   margin: 0 0 .25em;
+  font-size: 20px;
   font-weight: 400;
   font-style: italic;
 }
@@ -61,6 +65,11 @@ a:hover {
 a:active {
   color: #6a20af;
 }
+
+input[type="button"] {
+  border: 2px outset #767676;  /* To match default Chrome button style */
+}
+
 
 #main {
   min-height: 400px;
@@ -178,6 +187,7 @@ a:active {
 }
 
 #index_content_start {
+  display: none;
   background-color: #302247;
   color: #fff;
   font-size: 22px;
@@ -216,10 +226,13 @@ a:active {
 #welcome_nickname {
   padding: 4px;
   margin: 2rem 0 0.5rem 0;
+  font-size: 20px;
 }
 
 #welcome_title {
   color: #302247;
+  font-family: 'McKloud Tempest', sans-serif;
+  font-size: 48px;
 }
 
 #welcome_subtitle {

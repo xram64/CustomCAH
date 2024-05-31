@@ -81,6 +81,7 @@ boolean allowBlankCards = injector.getInstance(Key.get(new TypeLiteral<Boolean>(
   <link rel="icon" type="image/x-icon" href="tma/favicon.ico">
   <link rel="icon" type="image/png" href="tma/favicon.png"/>
   <link href="https://fonts.cdnfonts.com/css/noto-sans?styles=19843,19842" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/mckloud?styles=1050,1051,1052,1053,1054,1055" rel="stylesheet">
 </head>
 
 <body id="gamebody">

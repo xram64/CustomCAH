@@ -799,7 +799,7 @@ cah.Game.prototype.insertIntoDocument = function() {
 /**
  * Display a message that a Cardcast deck has been added to the game.
  * 
- * @param {object}
+ * @param {Object}
  *          data Payload from server.
  */
 cah.Game.prototype.addCardcastDeck = function(data) {
@@ -809,7 +809,7 @@ cah.Game.prototype.addCardcastDeck = function(data) {
 /**
  * Display a message that a Cardcast deck has been removed from the game.
  * 
- * @param {object}
+ * @param {Object}
  *          data Payload from server.
  */
 cah.Game.prototype.removeCardcastDeck = function(data) {
@@ -819,7 +819,7 @@ cah.Game.prototype.removeCardcastDeck = function(data) {
 /**
  * Display a list of currently in-use Cardcast decks.
  * 
- * @param {array}
+ * @param {Array}
  *          data Array of CardSetDatas.
  */
 cah.Game.prototype.listCardcastDecks = function(cardSets) {
@@ -836,9 +836,9 @@ cah.Game.prototype.listCardcastDecks = function(cardSets) {
 /**
  * Display a message about a Cardcast deck.
  * 
- * @param {object}
+ * @param {Object}
  *          deckInfo The CardSetData of the deck.
- * @param {string}
+ * @param {String}
  *          verb Verb to display at the beginning of the message: "Added", "Removed", "In use", etc.
  * @private
  */
@@ -1049,7 +1049,7 @@ cah.Game.prototype.hurryUp = function() {
 /**
  * A player was kicked due to being idle.
  * 
- * @param {object}
+ * @param {Object}
  *          data Event data from server.
  */
 cah.Game.prototype.playerKickedIdle = function(data) {
@@ -1060,7 +1060,7 @@ cah.Game.prototype.playerKickedIdle = function(data) {
 /**
  * A player was skipped due to being idle.
  * 
- * @param {obejct}
+ * @param {Object}
  *          data Event data from server.
  */
 cah.Game.prototype.playerSkipped = function(data) {
@@ -1081,7 +1081,7 @@ cah.Game.prototype.reshuffle = function(deck) {
 /**
  * Notify the player that the judge has left the game and cards are being returned to hands.
  * 
- * @param {object}
+ * @param {Object}
  *          data Event data from the server.
  */
 cah.Game.prototype.judgeLeft = function(data) {
@@ -1525,7 +1525,7 @@ cah.Game.prototype.optionChanged_ = function(e) {
 
 /**
  * 
- * @param {object}
+ * @param {Object}
  *          data Event data from server.
  */
 cah.Game.prototype.optionsChanged = function(data) {
