@@ -604,7 +604,7 @@ COPY black_cards (id, draw, pick, text, watermark) FROM stdin;
 4047	0	1	Who's a little ____? Oooo, [<i>same card</i>].	TMA
 4048	0	1	____? MMMMMM, YOU LOVE IT.	TMA
 4049	0	1	This is how democracy dies, with ____.	TMA
-4050	0	1	Ah yes, the two genders: ____ and ____.	TMA
+4050	0	2	Ah yes, the two genders: ____ and ____.	TMA
 \.
 
 
