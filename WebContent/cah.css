@@ -671,8 +671,8 @@ span.debug, span.admin {
 .game_right_side_cards {
   margin-top: 5px;
   min-width: 600px;
-  /* cursor: pointer; */
-  cursor: grab;
+  cursor: pointer;
+  /* cursor: grab; */
   position: relative;
   z-index: 0;
 }
