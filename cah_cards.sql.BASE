@@ -248,9 +248,7 @@ COPY black_cards (id, draw, pick, text, watermark) FROM stdin;
 126	0	1	A recent laboratory study shows that undergraduates have 50% less sex after being exposed to: ____.	CA
 127	0	1	Dear Abby, I'm having some trouble ____ and would like your advice.	CA
 128	0	1	In the new Disney Channel Original Movie, Hannah Montana struggles with ____ for the first time.	CA
-129	0	1	Skidamarink a dink a dink, skidamarink a doo, I love ____.	CA
 130	0	1	But before I kill you, Mr. Bond, I must show you.	CA
-131	0	1	The new Chevy Tahoe. With the power and space to take ____ everywhere you go.	CA
 133	0	1	Airport security guidelines now prohibit ____ on airplanes.	UK
 135	0	1	____? Jim'll fix it!	UK
 136	0	1	Daddy, why is mummy crying?	UK
@@ -5548,7 +5546,6 @@ COPY white_cards (id, text, watermark) FROM stdin;
 884	Spectacular abs.	US
 885	Full frontal nudity.	US
 886	A tiny, gay guitar called a ukulele.	US
-887	Mansplaining.	US
 889	Sweet, sweet vengeance.	US
 890	How amazing it is to be on mushrooms.	US
 892	Hope.	US
