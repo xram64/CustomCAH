@@ -301,10 +301,27 @@ cah.Game = function(id) {
    */
   this.canSelectCard_ = true;
 
+  /**
+   * Whether the player is in "discard mode". [xram]
+   * 
+   * @type {Boolean}
+   * @private
+   */
+  this.discardMode_ = false;
+
+  /**
+   * Number of cards a player has discarded this turn. [xram]
+   * 
+   * @type {Number}
+   * @private
+   */
+  this.discardCount_ = 0;
+
   $("#leave_game").click(cah.bind(this, this.leaveGameClick_));
   $("#start_game").click(cah.bind(this, this.startGameClick_));
   $("#stop_game").click(cah.bind(this, this.stopGameClick_));
   $(".confirm_card", this.element_).click(cah.bind(this, this.confirmClick_));
+  $(".start_discard_mode", this.element_).click(cah.bind(this, this.startDiscard_));  // [xram]
   $(".game_show_last_round", this.element_).click(cah.bind(this, this.showLastRoundClick_));
   $(".game_show_options", this.element_).click(cah.bind(this, this.showOptionsClick_));
   $("select", this.optionsElement_).change(cah.bind(this, this.optionChanged_));
@@ -448,7 +465,7 @@ cah.Game.prototype.setBlackCard = function(card) {
  *          cards The array of card objects sent from the server.
  */
 cah.Game.prototype.dealtCards = function(cards) {
-  for ( var index in cards) {
+  for (var index in cards) {
     var thisCard = cards[index];
     var card = new cah.card.WhiteCard(true, thisCard[cah.$.WhiteCardData.ID]);
     card.setText(thisCard[cah.$.WhiteCardData.TEXT]);
@@ -532,9 +549,9 @@ cah.Game.prototype.removeAllCards = function() {
  *          cardSets Array of arrays of cah.$.WhiteCardData to display.
  */
 cah.Game.prototype.setRoundWhiteCards = function(cardSets) {
-  for ( var setIndex in cardSets) {
+  for (var setIndex in cardSets) {
     var thisSet = Array();
-    for ( var index in cardSets[setIndex]) {
+    for (var index in cardSets[setIndex]) {
       var cardData = cardSets[setIndex][index];
       var card;
       var id = cardData[cah.$.WhiteCardData.ID];
@@ -569,7 +586,7 @@ cah.Game.prototype.addRoundWhiteCard_ = function(cards) {
     parentElem = $(".game_white_cards", this.element_)[0];
   }
 
-  for ( var index in cards) {
+  for (var index in cards) {
     var card = cards[index];
 
     var element = card.getElement();
@@ -888,19 +905,19 @@ cah.Game.prototype.updateGameStatus = function(data) {
 
   var cardSetIds = options[cah.$.GameOptionData.CARD_SETS];// .split(',');
   $(".card_set", this.optionsElement_).removeAttr("checked");
-  for ( var key in cardSetIds) {
+  for (var key in cardSetIds) {
     var cardSetId = cardSetIds[key];
     $("#card_set_" + this.id_ + "_" + cardSetId, this.optionsElement_).attr("checked", "checked");
   }
   $(".blanks_limit", this.optionsElement_).val(options[cah.$.GameOptionData.BLANKS_LIMIT]);
 
   var playerInfos = data[cah.$.AjaxResponse.PLAYER_INFO];
-  for ( var index in playerInfos) {
+  for (var index in playerInfos) {
     this.updateUserStatus(playerInfos[index]);
   }
 
   var spectators = gameInfo[cah.$.GameInfo.SPECTATORS];
-  for ( var index in spectators) {
+  for (var index in spectators) {
     this.updateSpectator(spectators[index]);
   }
 };
@@ -931,12 +948,26 @@ cah.Game.prototype.updateUserStatus = function(playerInfo) {
   if (playerName == cah.nickname) {
     $(".game_message", this.element_).text(cah.$.GamePlayerStatus_msg_2[playerStatus]);
 
+    // `Confirm Selection` button logic
     if (playerStatus == cah.$.GamePlayerStatus.PLAYING && this.handSelectedCard_ != null) {
       $(".confirm_card", this.element_).removeAttr("disabled");
     } else if (playerStatus == cah.$.GamePlayerStatus.JUDGING && this.roundSelectedCard_ != null) {
       $(".confirm_card", this.element_).removeAttr("disabled");
     } else {
       $(".confirm_card", this.element_).attr("disabled", "disabled");
+    }
+
+    // `Discard` button logic [xram]
+    if (this.discardCount_ > 0) {
+      // Disable the button if a card has already been discarded this round.
+      // HACK: Unknown whether this function runs often enough for this to work.
+      $(".start_discard_mode", this.element_).attr("disabled", "disabled");
+    } else if (playerStatus == cah.$.GamePlayerStatus.PLAYING && this.handSelectedCard_ == null) {
+      // Enable the button if this is a player and no card is selected.
+      $(".start_discard_mode", this.element_).removeAttr("disabled");
+    } else {
+      // Disable the button when a player has a card selected, and for the round judge.
+      $(".start_discard_mode", this.element_).attr("disabled", "disabled");
     }
 
     if (playerStatus != cah.$.GamePlayerStatus.PLAYING) {
@@ -1019,6 +1050,7 @@ cah.Game.prototype.roundComplete = function(data) {
   var scoreCard = this.scoreCards_[roundWinner];
   $(scoreCard.getElement()).addClass("selected");
   $(".confirm_card", this.element_).attr("disabled", "disabled");
+  $(".start_discard_mode", this.element_).attr("disabled", "disabled");  // [xram]
   var msg = roundWinner + " wins the round.  The next round will begin in "
       + (data[cah.$.LongPollResponse.INTERMISSION] / 1000) + " seconds.";
   if (cah.$.LongPollResponse.ROUND_PERMALINK in data) {
@@ -1153,15 +1185,45 @@ cah.Game.prototype.handCardClick_ = function(e) {
   if (!this.canSelectCard_) {
     return;
   }
-  // judge can't select a card.
+
+  // Judge can't select a card (or discard).
   if (this.judge_ == cah.nickname) {
     return;
   }
+
+  if (this.discardMode_ && this.discardCount_ < 1) {  // [xram]
+    // If discard mode is active and no cards have yet been discarded,
+    //  handle card selection here as a discard request, and return.
+    // TODO: Make the number of allowed discards variable?
+
+    // Get the clicked card.
+    /** @type {cah.card.WhiteCard} */
+    var card = e.data.card;
+
+    // Disable discard mode.
+    this.discardMode_ = false;
+
+    // If the card is already in the "selected" state (waiting for Confirm), ignore the discard request.
+    // (This shouldn't happen because the button is disabled when a card is selected?)
+    if (card == this.handSelectedCard_) {
+      cah.log.ariaStatus("Cannot discard a selected card. Deselect it first.");
+    }
+    // Otherwise, handle the discard request.
+    else {
+      this.removeCardFromHand(card);
+      $(".start_discard_mode", this.element_).attr("disabled", "disabled");  // disable button
+      this.discardCount_++;  // increment count
+      cah.log.ariaStatus("Discarded card.");
+    }
+    return;
+  }
+
   // this player isn't in playing state
   var scorecard = this.scoreCards_[cah.nickname];
   if (scorecard && scorecard.getStatus() != cah.$.GamePlayerStatus.PLAYING) {
     return;
   }
+
   /** @type {cah.card.WhiteCard} */
   var card = e.data.card;
 
@@ -1173,12 +1235,12 @@ cah.Game.prototype.handCardClick_ = function(e) {
   // if the user clicked on the same card, deselect it.
   if (card == this.handSelectedCard_) {
     this.handSelectedCard_ = null;
-    $(".confirm_card", this.element_).attr("disabled", "disabled");
+    $(".confirm_card", this.element_).attr("disabled", "disabled");  // disables the "Confirm Selection" button
     cah.log.ariaStatus("Deselected card.");
   } else {
     this.handSelectedCard_ = card;
     $(".card", card.getElement()).addClass("selected");
-    $(".confirm_card", this.element_).removeAttr("disabled");
+    $(".confirm_card", this.element_).removeAttr("disabled");  // enables the "Confirm Selection" button
     cah.log.ariaStatus("Selected card.");
   }
 };
@@ -1285,6 +1347,7 @@ cah.Game.prototype.playCardComplete = function() {
     this.handSelectedCard_ = null;
   }
   $(".confirm_card", this.element_).attr("disabled", "disabled");
+  $(".start_discard_mode", this.element_).attr("disabled", "disabled");  // [xram]
   this.enableCardControls_();
 };
 
@@ -1493,6 +1556,40 @@ cah.Game.prototype.updateOptionsEnabled_ = function() {
 };
 
 /**
+ * Event handler for discard button (enables "discard mode"). [xram]
+ * 
+ * @param e
+ * @private
+ */
+cah.Game.prototype.startDiscard_ = function(e) {
+  // Enabling "discard mode" signals to the `handCardClick_` function that
+  //  the next selected card should be discarded.
+
+  // Keep discard mode off if a card has already been discarded this round.
+  // TODO: Make the number of allowed discards variable?
+  if (this.discardCount_ > 0)
+    this.discardMode_ = false;
+  else
+    this.discardMode_ = !this.discardMode_;  // toggle
+
+  // Discard mode was enabled:
+  if (this.discardMode_) {
+    // Apply styles (relative to `this.element_` as the 'context')
+    $(".game_bottom", this.element_).addClass("discard_mode");          // background color
+    $(".game_hand_discard", this.element_).addClass("discard_mode");    // text prompt
+    $(".start_discard_mode", this.element_).addClass("discard_mode");   // 'Discard' button
+  }
+  // Discard mode was disabled:
+  else {
+    // Remove styles
+    $(".game_bottom", this.element_).removeClass("discard_mode");
+    $(".game_hand_discard", this.element_).removeClass("discard_mode");
+    $(".start_discard_mode", this.element_).removeClass("discard_mode");
+  }
+
+};
+
+/**
  * Event handler for changing an option.
  * 
  * @param e
@@ -1559,6 +1656,13 @@ cah.GameScorePanel = function(player) {
   this.player_ = player;
 
   /**
+   * A clone of the scorecard template is made for each row of the scorecard.
+   * Each clone is stored in `this.element_` and handled individually below.
+   * The clone has class `.scorecard` and contains 3 spans:
+   *   - `scorecard_player`
+   *   - `scorecard_points`
+   *   - `scorecard_status_wrapper`
+   * 
    * @type {HTMLDivElement}
    * @private
    */
@@ -1593,18 +1697,22 @@ cah.GameScorePanel.prototype.getElement = function() {
 /**
  * Update the score panel.
  * 
- * TODO add some color for different statuses
- * 
  * @param {Number}
  *          score The player's score
  * @param {cah.$.GamePlayerStatus}
  *          status The player's status.
+ *          See `cah.constants.js:278` for status message codes.
  */
 cah.GameScorePanel.prototype.update = function(score, status) {
   this.score_ = score;
   this.status_ = status;
   $(".scorecard_score", this.element_).text(score);
+
   $(".scorecard_status", this.element_).text(cah.$.GamePlayerStatus_msg[status]);
+  
+  // Add the status code for this player as an HTML tag so it can be styled with a CSS rule. [xram]
+  $(".scorecard_status", this.element_).attr("status", status);
+
   $(".scorecard_s", this.element_).text(score == 1 ? "" : "s");
   if (score < 0) {
     $(".scorecard_points", this.element_).addClass("hide");
@@ -1613,7 +1721,7 @@ cah.GameScorePanel.prototype.update = function(score, status) {
     $(".scorecard_points", this.element_).removeClass("hide");
     $(this.element_).attr(
         "aria-label",
-        this.player_ + " has " + score + " Awesome Point" + (score == 1 ? "" : "s") + ". "
+        this.player_ + " has " + score + " point" + (score == 1 ? "" : "s") + ". "
             + cah.$.GamePlayerStatus_msg[status]);
   }
 };

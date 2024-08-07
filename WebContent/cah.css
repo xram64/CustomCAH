@@ -530,7 +530,7 @@ span.debug, span.admin {
   text-align: center;
 }
 
-.game_hand_filter_text {
+.game_hand_filter_text {  /* "You are the Card Czar." overlay */
   font-family: 'Noto Sans';
   position: relative;
   top: 25%;
@@ -556,11 +556,58 @@ span.debug, span.admin {
   cursor: cell;
 }
 
+.game_hand_discard {
+  position: absolute;
+  top: 84%;
+  left: 0%;
+  width: 80%;
+  text-align: center;
+  font-size: 2rem;
+  z-index: 5;
+  display: none;
+}
+
+.game_hand_discard_text {
+  padding: 0.6rem 1rem;
+  border: 1px solid #310909;
+  border-radius: 7px;
+  background-color: #e8b1bf;
+  color: #310909;
+}
+
+.game_hand_discard.discard_mode {
+  display: revert !important;
+}
+
+.start_discard_mode {
+  background-color: #a93d3d;
+  animation: 0.5s ease-in 0s infinite alternate none pulse_red;
+}
+
+@keyframes pulse_red {
+  from { background-color: #a93d3d; }
+  to { background-color: #d04848; }
+}
+
+.game_action {  /* Menu bar buttons used for actions (like 'Discard') */
+  background-color: #214458;
+  font-weight: 600;
+}
+.game_action:disabled {
+  background-color: #3f5662;
+  color: #c4c4c4;
+}
+
 .game_top {
-  margin: 0px 10px;
+  margin: -2px 3px 2px 3px;
   padding: 4px 4px;
   font-size: large;
   box-shadow: 0px 0px 2px 1px #33333380;
+
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .game_top input[type="button"] {
@@ -572,6 +619,20 @@ span.debug, span.admin {
   margin: 0px 2px;
 }
 
+.game_bottom {
+  width: 100%;
+  height: 472px;
+  transition: 0.6s;
+}
+.game_bottom.discard_mode {
+  background-color: #f0dde2;
+}
+
+.game_round {
+  width: 100%;
+  height: 100%;
+}
+
 .game_menu_bar {
   float: right;
 }
@@ -579,6 +640,7 @@ span.debug, span.admin {
 .game_message {
   font-size: 110%;
   font-weight: bold;
+  margin-right: auto;
 }
 
 #scoreboard_title {
@@ -623,8 +685,10 @@ span.debug, span.admin {
   background-color: #554176;
 }
 .confirm_card:disabled {
-  background-color: #686270;
+  background-color: #848089;
+  border: 2px solid #999999;
   box-shadow: none;
+  color: #c8c8c8;
 }
 
 .game_left_side {
@@ -729,14 +793,34 @@ span.debug, span.admin {
   background:#f8f8f8;
 }
 
-.scorecard_status {  /* "Host" tag */
-  font-size: 10pt;
-  /* float: right; */
-  /* margin-right: 5px; */
+.scorecard_status {  /* Fallback */
+  color: #000;
+  text-shadow: none;
+}
+.scorecard_status[status="sh"] {  /* sh = "Host" */
+  color: #0f0000;
+  text-shadow: 0px 1px 3px #ff0000bf;
+}
+.scorecard_status[status="sp"] {  /* sp = "Playing" */
+  color: #3a0034;
+  text-shadow: 0px 1px 3px #ff00e3c0;
+}
+.scorecard_status[status="sj"], .scorecard_status[status="sjj"] {  /* sj = "Card Czar", sjj = "Selecting" */
+  color: #002c31;
+  text-shadow: 0px 1px 3px #00e5ffc0;
+}
+.scorecard_status[status="sv"] {  /* sv = "Spectator" */
+  color: #000;
+  text-shadow: 0px 1px 3px #000000c0;
+}
+.scorecard_status[status="sw"] {  /* sw = "Winner!" */
+  color: #003e08;
+  text-shadow: 0px 1px 5px #00ff1fc0;
+  font-weight: 600;
+  font-size: 11pt;
 }
 
-.scorecard_status_wrapper {  /* Parentheses or other chars around "Host" tag */
-  text-shadow: 0px 1px 3px #ff00e3c0;
+.scorecard_status_wrapper {  /* Parentheses or other chars around tags */
   font-size: 10pt;
   margin-left: 5px;
   margin-right: 5px;
@@ -885,7 +969,7 @@ span.debug, span.admin {
 
 .checkbox {
   margin-top: 2px;
-  margin-right: 16px;
+  margin-right: 12px;
   white-space: nowrap;
   font-size: smaller;
 }
@@ -927,3 +1011,4 @@ span.debug, span.admin {
 .permahide {  /* Used to force-hide page elements */
   display: none;
 }
+

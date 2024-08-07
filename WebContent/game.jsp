@@ -304,17 +304,20 @@ boolean allowBlankCards = injector.getInstance(Key.get(new TypeLiteral<Boolean>(
 <div style="width: 1000px; height: 506px; border: 1px solid black; position: relative;"
     class="hide">
   <div id="game_template" class="game">
-    <div class="game_top">
-      <input type="button" class="game_show_last_round game_menu_bar" value="Show Last Round"
-          disabled="disabled" />
+
+    <div class="game_top">  <!-- Elements listed here in reverse order due to flexbox direction -->
+      <input type="button" class="game_show_last_round game_menu_bar" value="Show Last Round" disabled="disabled" />
       <input type="button" class="game_show_options game_menu_bar" value="Hide Game Options" />
       <label class="game_menu_bar checkbox"><input type="checkbox" class="game_animate_cards" checked="checked" /><span> Animate Cards</span></label>
+      <span style="margin: 0px 16px 0px 20px;">|</span>  <!-- Divider -->
+      <input type="button" class="start_discard_mode game_action game_menu_bar" value="Discard" title="Choose one card to discard this round. You will draw an extra card next turn." disabled="disabled" />  <!-- [xram] -->
       <div class="game_message" role="status">
         Waiting for server...
       </div>
-    </div>
-    <div style="width:100%; height:472px;">
-      <div style="width:100%; height:100%;">
+    </div>  <!-- End of `.game_top` -->
+
+    <div class="game_bottom">
+      <div class="game_round">
         <div class="game_left_side">
           <div class="game_black_card_wrapper">
             <span tabindex="0">The black card for
@@ -348,8 +351,15 @@ boolean allowBlankCards = injector.getInstance(Key.get(new TypeLiteral<Boolean>(
         <div class="game_hand_cards">
         </div>
       </div>
-    </div>
-  </div>
+
+      <%-- [xram] --%>
+      <div id="game_hand_discard">
+        <span id="game_hand_discard_text">Choose one card to discard this round:</span>
+      </div>
+
+    </div>  <!-- End of `.game_bottom` -->
+
+  </div>  <!-- End of `.game`/`#game_template` -->
 </div>
 
 <!-- Template for scoreboard container. Holder for design. -->
