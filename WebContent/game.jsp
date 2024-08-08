@@ -310,7 +310,7 @@ boolean allowBlankCards = injector.getInstance(Key.get(new TypeLiteral<Boolean>(
       <input type="button" class="game_show_options game_menu_bar" value="Hide Game Options" />
       <label class="game_menu_bar checkbox"><input type="checkbox" class="game_animate_cards" checked="checked" /><span> Animate Cards</span></label>
       <span style="margin: 0px 16px 0px 20px;">|</span>  <!-- Divider -->
-      <input type="button" class="start_discard_mode game_action game_menu_bar" value="Discard" title="Choose one card to discard this round. You will draw an extra card next turn." disabled="disabled" />  <!-- [xram] -->
+      <input type="button" class="actionbtn_discard game_action game_menu_bar" value="Discard" title="Choose one card to discard this round. You will draw an extra card next turn." disabled="disabled" />  <!-- [xram] -->
       <div class="game_message" role="status">
         Waiting for server...
       </div>
@@ -353,8 +353,8 @@ boolean allowBlankCards = injector.getInstance(Key.get(new TypeLiteral<Boolean>(
       </div>
 
       <%-- [xram] --%>
-      <div id="game_hand_discard">
-        <span id="game_hand_discard_text">Choose one card to discard this round:</span>
+      <div class="game_hand_discard">
+        <span class="game_hand_discard_text">Choose one card to discard this round:</span>
       </div>
 
     </div>  <!-- End of `.game_bottom` -->

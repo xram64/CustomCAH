@@ -321,7 +321,7 @@ cah.Game = function(id) {
   $("#start_game").click(cah.bind(this, this.startGameClick_));
   $("#stop_game").click(cah.bind(this, this.stopGameClick_));
   $(".confirm_card", this.element_).click(cah.bind(this, this.confirmClick_));
-  $(".start_discard_mode", this.element_).click(cah.bind(this, this.startDiscard_));  // [xram]
+  $(".actionbtn_discard", this.element_).click(cah.bind(this, this.startDiscard_));  // [xram]
   $(".game_show_last_round", this.element_).click(cah.bind(this, this.showLastRoundClick_));
   $(".game_show_options", this.element_).click(cah.bind(this, this.showOptionsClick_));
   $("select", this.optionsElement_).change(cah.bind(this, this.optionChanged_));
@@ -961,13 +961,13 @@ cah.Game.prototype.updateUserStatus = function(playerInfo) {
     if (this.discardCount_ > 0) {
       // Disable the button if a card has already been discarded this round.
       // HACK: Unknown whether this function runs often enough for this to work.
-      $(".start_discard_mode", this.element_).attr("disabled", "disabled");
+      $(".actionbtn_discard", this.element_).attr("disabled", "disabled");
     } else if (playerStatus == cah.$.GamePlayerStatus.PLAYING && this.handSelectedCard_ == null) {
       // Enable the button if this is a player and no card is selected.
-      $(".start_discard_mode", this.element_).removeAttr("disabled");
+      $(".actionbtn_discard", this.element_).removeAttr("disabled");
     } else {
       // Disable the button when a player has a card selected, and for the round judge.
-      $(".start_discard_mode", this.element_).attr("disabled", "disabled");
+      $(".actionbtn_discard", this.element_).attr("disabled", "disabled");
     }
 
     if (playerStatus != cah.$.GamePlayerStatus.PLAYING) {
@@ -1050,7 +1050,7 @@ cah.Game.prototype.roundComplete = function(data) {
   var scoreCard = this.scoreCards_[roundWinner];
   $(scoreCard.getElement()).addClass("selected");
   $(".confirm_card", this.element_).attr("disabled", "disabled");
-  $(".start_discard_mode", this.element_).attr("disabled", "disabled");  // [xram]
+  $(".actionbtn_discard", this.element_).attr("disabled", "disabled");  // [xram]
   var msg = roundWinner + " wins the round.  The next round will begin in "
       + (data[cah.$.LongPollResponse.INTERMISSION] / 1000) + " seconds.";
   if (cah.$.LongPollResponse.ROUND_PERMALINK in data) {
@@ -1200,20 +1200,22 @@ cah.Game.prototype.handCardClick_ = function(e) {
     /** @type {cah.card.WhiteCard} */
     var card = e.data.card;
 
-    // Disable discard mode.
-    this.discardMode_ = false;
+    // Disable discard mode and clear styles, but don't reset counter.
+    this.resetDiscard_(false);
 
     // If the card is already in the "selected" state (waiting for Confirm), ignore the discard request.
     // (This shouldn't happen because the button is disabled when a card is selected?)
     if (card == this.handSelectedCard_) {
       cah.log.ariaStatus("Cannot discard a selected card. Deselect it first.");
+      cah.log.status_with_game(this, "Cannot discard a selected card. Deselect it first.");
     }
     // Otherwise, handle the discard request.
     else {
       this.removeCardFromHand(card);
-      $(".start_discard_mode", this.element_).attr("disabled", "disabled");  // disable button
-      this.discardCount_++;  // increment count
+      this.discardCount_++;
+      $(".actionbtn_discard", this.element_).attr("disabled", "disabled");  // disable button
       cah.log.ariaStatus("Discarded card.");
+      cah.log.status_with_game(this, "Discarded card. Another will be drawn in the next round.");
     }
     return;
   }
@@ -1347,7 +1349,7 @@ cah.Game.prototype.playCardComplete = function() {
     this.handSelectedCard_ = null;
   }
   $(".confirm_card", this.element_).attr("disabled", "disabled");
-  $(".start_discard_mode", this.element_).attr("disabled", "disabled");  // [xram]
+  $(".actionbtn_discard", this.element_).attr("disabled", "disabled");  // [xram]
   this.enableCardControls_();
 };
 
@@ -1482,6 +1484,9 @@ cah.Game.prototype.stateChange = function(data) {
 
   $(".scorecard", this.scoreboardElement_).removeClass("selected");
 
+  // Reset discard mode state and counter. [xram]
+  this.resetDiscard_(true);
+
   switch (this.state_) {
     case cah.$.GameState.LOBBY:
       this.removeAllCards();
@@ -1556,40 +1561,6 @@ cah.Game.prototype.updateOptionsEnabled_ = function() {
 };
 
 /**
- * Event handler for discard button (enables "discard mode"). [xram]
- * 
- * @param e
- * @private
- */
-cah.Game.prototype.startDiscard_ = function(e) {
-  // Enabling "discard mode" signals to the `handCardClick_` function that
-  //  the next selected card should be discarded.
-
-  // Keep discard mode off if a card has already been discarded this round.
-  // TODO: Make the number of allowed discards variable?
-  if (this.discardCount_ > 0)
-    this.discardMode_ = false;
-  else
-    this.discardMode_ = !this.discardMode_;  // toggle
-
-  // Discard mode was enabled:
-  if (this.discardMode_) {
-    // Apply styles (relative to `this.element_` as the 'context')
-    $(".game_bottom", this.element_).addClass("discard_mode");          // background color
-    $(".game_hand_discard", this.element_).addClass("discard_mode");    // text prompt
-    $(".start_discard_mode", this.element_).addClass("discard_mode");   // 'Discard' button
-  }
-  // Discard mode was disabled:
-  else {
-    // Remove styles
-    $(".game_bottom", this.element_).removeClass("discard_mode");
-    $(".game_hand_discard", this.element_).removeClass("discard_mode");
-    $(".start_discard_mode", this.element_).removeClass("discard_mode");
-  }
-
-};
-
-/**
  * Event handler for changing an option.
  * 
  * @param e
@@ -1618,6 +1589,57 @@ cah.Game.prototype.optionChanged_ = function(e) {
 
   cah.Ajax.build(cah.$.AjaxOperation.CHANGE_GAME_OPTIONS).withGameId(this.id_).withGameOptions(
       options).run();
+};
+
+
+/**
+ * Event handler for discard button (enables "discard mode"). [xram]
+ * 
+ * @param e
+ * @private
+ */
+cah.Game.prototype.startDiscard_ = function(e) {
+  // Enabling "discard mode" signals to the `handCardClick_` function that
+  //  the next selected card should be discarded.
+
+  // Keep discard mode off if a card has already been discarded this round.
+  // TODO: Make the number of allowed discards variable?
+  if (this.discardCount_ > 0)
+    this.discardMode_ = false;
+  else
+    this.discardMode_ = !this.discardMode_;  // toggle
+
+  // Discard mode was enabled:
+  if (this.discardMode_) {
+    // Apply styles (relative to `this.element_` as the 'context')
+    $(".game_bottom", this.element_).addClass("discard_mode");          // background color
+    $(".game_hand_discard", this.element_).addClass("discard_mode");    // text prompt
+    $(".actionbtn_discard", this.element_).addClass("discard_mode");    // 'Discard' button
+  }
+  // Discard mode was disabled:
+  else {
+    // Disable discard mode and clear styles, but don't reset counter.
+    this.resetDiscard_(false);
+  }
+
+};
+
+/**
+ * Reset all variables and UI state for discard mode. [xram]
+ * 
+ * @param {Boolean}
+ *          resetCount When `true`, also reset discard count.
+ * @private
+ */
+cah.Game.prototype.resetDiscard_ = function(resetCount) {
+  if (resetCount) this.discardCount_ = 0;
+  
+  this.discardMode_ = false;
+
+  // Remove styles
+  $(".game_bottom", this.element_).removeClass("discard_mode");
+  $(".game_hand_discard", this.element_).removeClass("discard_mode");
+  $(".actionbtn_discard", this.element_).removeClass("discard_mode");
 };
 
 /**
