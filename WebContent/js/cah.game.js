@@ -317,11 +317,13 @@ cah.Game = function(id) {
    */
   this.discardCount_ = 0;
 
+
+  // Attach event handlers.
   $("#leave_game").click(cah.bind(this, this.leaveGameClick_));
   $("#start_game").click(cah.bind(this, this.startGameClick_));
   $("#stop_game").click(cah.bind(this, this.stopGameClick_));
   $(".confirm_card", this.element_).click(cah.bind(this, this.confirmClick_));
-  $(".actionbtn_discard", this.element_).click(cah.bind(this, this.startDiscard_));  // [xram]
+  $(".actionbtn_discard", this.element_).click(cah.bind(this, this.toggleDiscardMode_));  // [xram]
   $(".game_show_last_round", this.element_).click(cah.bind(this, this.showLastRoundClick_));
   $(".game_show_options", this.element_).click(cah.bind(this, this.showOptionsClick_));
   $("select", this.optionsElement_).change(cah.bind(this, this.optionChanged_));
@@ -507,7 +509,7 @@ cah.Game.prototype.dealtCard = function(card) {
  */
 cah.Game.prototype.removeCardFromHand = function(card) {
   var cardIndex = -1;
-  for ( var index in this.hand_) {
+  for (var index in this.hand_) {
     if (this.hand_[index] == card) {
       cardIndex = index;
       break;
@@ -1201,7 +1203,7 @@ cah.Game.prototype.handCardClick_ = function(e) {
     var card = e.data.card;
 
     // Disable discard mode and clear styles, but don't reset counter.
-    this.resetDiscard_(false);
+    this.resetDiscardMode_(false);
 
     // If the card is already in the "selected" state (waiting for Confirm), ignore the discard request.
     // (This shouldn't happen because the button is disabled when a card is selected?)
@@ -1211,11 +1213,9 @@ cah.Game.prototype.handCardClick_ = function(e) {
     }
     // Otherwise, handle the discard request.
     else {
-      this.removeCardFromHand(card);
-      this.discardCount_++;
-      $(".actionbtn_discard", this.element_).attr("disabled", "disabled");  // disable button
-      cah.log.ariaStatus("Discarded card.");
-      cah.log.status_with_game(this, "Discarded card. Another will be drawn in the next round.");
+      // Send an AJAX request to remove the card from the player's hand on the server side and put it in the discard pile.
+      // The client side DOM elements for the card will be removed in the `discardCardComplete` function upon a success response.
+      cah.Ajax.build(cah.$.AjaxOperation.DISCARD_CARD).withGameId(this.id_).withCardId(card.getServerId()).run();
     }
     return;
   }
@@ -1339,6 +1339,12 @@ cah.Game.prototype.stopGameClick_ = function() {
 
 /**
  * Called when the call to the server to play a card has completed successfully.
+ * 
+ * Specifically, this function runs on the client side after the server-side `playCard` function 
+ * in `Game.java` has returned null (no error). This is defined in `cah.ajax.handlers.js`.
+ * 
+ * The `playCard` function adds the card to the `playedCards` list in `Game.java`, automatically
+ * causing the `startNextRound` function to add it to the discard pile at the start of the next round.
  */
 cah.Game.prototype.playCardComplete = function() {
   if (this.handSelectedCard_) {
@@ -1349,7 +1355,6 @@ cah.Game.prototype.playCardComplete = function() {
     this.handSelectedCard_ = null;
   }
   $(".confirm_card", this.element_).attr("disabled", "disabled");
-  $(".actionbtn_discard", this.element_).attr("disabled", "disabled");  // [xram]
   this.enableCardControls_();
 };
 
@@ -1358,6 +1363,32 @@ cah.Game.prototype.playCardComplete = function() {
  */
 cah.Game.prototype.playCardError = function() {
   this.enableCardControls_();
+};
+
+/**
+ * Called when the call to the server to discard a card has completed successfully.  [xram]
+ * 
+ * This function handles the client-side part of a discard action.
+ */
+cah.Game.prototype.discardCardComplete = function() {
+  // Remove all DOM elements for this card from the page.
+  this.removeCardFromHand(card);
+  $(".actionbtn_discard", this.element_).attr("disabled", "disabled");  // disable button
+
+  cah.log.ariaStatus("Discarded card.");
+  cah.log.status_with_game(this, "Discarded card. Another will be drawn in the next round.");
+
+  this.discardCount_++;
+};
+
+/**
+ * Called when an error ocurred while trying to discard a card.  [xram]
+ * 
+ * @param {String}
+ *          error Error message returned by `DiscardCardHandler`.
+ */
+cah.Game.prototype.discardCardError = function(error) {
+  cah.log.status_with_game(this, error);
 };
 
 /**
@@ -1485,7 +1516,7 @@ cah.Game.prototype.stateChange = function(data) {
   $(".scorecard", this.scoreboardElement_).removeClass("selected");
 
   // Reset discard mode state and counter. [xram]
-  this.resetDiscard_(true);
+  this.resetDiscardMode_(true);
 
   switch (this.state_) {
     case cah.$.GameState.LOBBY:
@@ -1595,10 +1626,12 @@ cah.Game.prototype.optionChanged_ = function(e) {
 /**
  * Event handler for discard button (enables "discard mode"). [xram]
  * 
+ * The actual discarding is handled within the `handCardClick_` function.
+ * 
  * @param e
  * @private
  */
-cah.Game.prototype.startDiscard_ = function(e) {
+cah.Game.prototype.toggleDiscardMode_ = function(e) {
   // Enabling "discard mode" signals to the `handCardClick_` function that
   //  the next selected card should be discarded.
 
@@ -1619,7 +1652,7 @@ cah.Game.prototype.startDiscard_ = function(e) {
   // Discard mode was disabled:
   else {
     // Disable discard mode and clear styles, but don't reset counter.
-    this.resetDiscard_(false);
+    this.resetDiscardMode_(false);
   }
 
 };
@@ -1631,7 +1664,7 @@ cah.Game.prototype.startDiscard_ = function(e) {
  *          resetCount When `true`, also reset discard count.
  * @private
  */
-cah.Game.prototype.resetDiscard_ = function(resetCount) {
+cah.Game.prototype.resetDiscardMode_ = function(resetCount) {
   if (resetCount) this.discardCount_ = 0;
   
   this.discardMode_ = false;

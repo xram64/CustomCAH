@@ -15,6 +15,7 @@ cah.$.AjaxOperation.GAME_LIST = "ggl";
 cah.$.AjaxOperation.CARDCAST_ADD_CARDSET = "cac";
 cah.$.AjaxOperation.CARDCAST_LIST_CARDSETS = "clc";
 cah.$.AjaxOperation.PLAY_CARD = "pc";
+cah.$.AjaxOperation.DISCARD_CARD = "dc";  // [xram]
 cah.$.AjaxOperation.CHANGE_GAME_OPTIONS = "cgo";
 cah.$.AjaxOperation.GET_GAME_INFO = "ggi";
 cah.$.AjaxOperation.GET_CARDS = "gc";

@@ -56,6 +56,12 @@ public class WhiteDeck {
       deck.add(createBlankCard());
     }
     Collections.shuffle(deck);
+
+    // This "discard pile" holds all played (and discarded) white cards throughout the game.  [xram]
+    // When the white deck runs out, the `reshuffle` function below will be called to remake
+    //   the white deck out of the shuffled discard pile (see `getNextWhiteCard` in `Game.java`).
+    // Thus if a card is removed from a players hand or the round cards without being added
+    //   to the discard pile, it will be completely removed from the current game.
     discard = new ArrayList<WhiteCard>(deck.size());
   }
 

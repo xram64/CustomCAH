@@ -262,13 +262,37 @@ cah.ajax.SuccessHandlers[cah.$.AjaxOperation.PLAY_CARD] = function(data, req) {
   }
 };
 
-cah.ajax.ErrorHandlers[cah.$.AjaxOperation.PLAY_CARD] = function(data) {
+cah.ajax.ErrorHandlers[cah.$.AjaxOperation.PLAY_CARD] = function(data, req) {
   cah.log.error(cah.$.ErrorCode_msg[data[cah.$.AjaxResponse.ERROR_CODE]]);
 
   var gameId = req[cah.$.AjaxRequest.GAME_ID];
   var game = cah.currentGames[gameId];
   if (game) {
     game.playCardError();
+  }
+};
+
+cah.ajax.SuccessHandlers[cah.$.AjaxOperation.DISCARD_CARD] = function(data) {  // [xram]
+  var gameId = req[cah.$.AjaxRequest.GAME_ID];
+  var game = cah.currentGames[gameId];
+  if (game) {
+    game.discardCardComplete();
+  }
+};
+
+cah.ajax.ErrorHandlers[cah.$.AjaxOperation.DISCARD_CARD] = function(data) {  // [xram]
+  cah.log.error(cah.$.ErrorCode_msg[data[cah.$.AjaxResponse.ERROR_CODE]]);
+
+  var gameId = req[cah.$.AjaxRequest.GAME_ID];
+  var game = cah.currentGames[gameId];
+  
+  if (game) {
+    if (data[cah.$.AjaxResponse.ERROR_CODE] == cah.$.ErrorCode.NOT_YOUR_TURN) {
+      game.discardCardError("Cannot discard.");
+    }
+    else {
+      game.discardCardError("Error trying to discard.");
+    }
   }
 };
 
@@ -292,7 +316,7 @@ cah.ajax.SuccessHandlers[cah.$.AjaxOperation.SCORE] = function(data, req) {
   var gameId = req[cah.$.AjaxRequest.GAME_ID];
   var info = data[cah.$.AjaxResponse.PLAYER_INFO];
   var msg = info[cah.$.GamePlayerInfo.NAME] + " has " + info[cah.$.GamePlayerInfo.SCORE]
-      + " Awesome Points.";
+      + " Points.";
   if (gameId) {
     cah.log.status_with_game(gameId, msg);
   } else {

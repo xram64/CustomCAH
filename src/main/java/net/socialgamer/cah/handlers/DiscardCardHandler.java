@@ -43,16 +43,14 @@ import com.google.inject.Inject;
 
 
 /**
- * Handler to play a card.
- *
- * @author Andy Janata (ajanata@socialgamer.net)
+ * Handler to discard a card.  [xram]
  */
-public class PlayCardHandler extends GameWithPlayerHandler {
+public class DiscardCardHandler extends GameWithPlayerHandler {
 
-  public static final String OP = AjaxOperation.PLAY_CARD.toString();
+  public static final String OP = AjaxOperation.DISCARD_CARD.toString();
 
   @Inject
-  public PlayCardHandler(final GameManager gameManager) {
+  public DiscardCardHandler(final GameManager gameManager) {
     super(gameManager);
   }
 
@@ -71,14 +69,9 @@ public class PlayCardHandler extends GameWithPlayerHandler {
     } catch (final NumberFormatException nfe) {
       return error(ErrorCode.INVALID_CARD);
     }
-    String text = request.getParameter(AjaxRequest.MESSAGE);
-    if (text != null && text.contains("<")) {
-      // somebody must be using a hacked client, because this should have been escaped already.
-      text = StringEscapeUtils.escapeXml11(text);
-    }
 
-    // Call the `playCard` function in `Game.java`.
-    final ErrorCode ec = game.playCard(user, cardId, text);
+    // Call the `discardCard` function in `Game.java`.
+    final ErrorCode ec = game.discardCard(user, cardId);
     if (ec != null) {
       return error(ec);
     } else {

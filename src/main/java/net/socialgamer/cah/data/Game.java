@@ -831,12 +831,18 @@ public class Game {
             }
             newBlackCard = blackCard = getNextBlackCard();
         }
+
+        // Decide whether to draw extra cards this round.
+        // Only runs if a non-zero "draw" count is listed in the black card's data.
         if (newBlackCard.getDraw() > 0) {
             synchronized (players) {
                 for (final Player player : players) {
+                    // If this player is the judge, skip.
                     if (getJudge() == player) {
                         continue;
                     }
+                    // Check the "draw" count indicated on this black card, and add that many white cards to the player's hand.
+                    // This is a "pre-draw" of extra cards at the start of a round, mostly just used for Pick-3 black cards.
                     final List<WhiteCard> cards = new ArrayList<WhiteCard>(newBlackCard.getDraw());
                     for (int i = 0; i < newBlackCard.getDraw(); i++) {
                         cards.add(getNextWhiteCard());
@@ -855,7 +861,8 @@ public class Game {
         data.put(LongPollResponse.BLACK_CARD, getBlackCard());
         data.put(LongPollResponse.GAME_STATE, GameState.PLAYING.toString());
         data.put(LongPollResponse.PLAY_TIMER, playTimer);
-        // if we're moving from lobby to playing, this is the first round
+
+        // If we're moving from lobby to playing, we know this is the *first round*.
         if (GameState.LOBBY == oldState) {
             maybeAddPermalinkToData(data);
         }
@@ -1404,6 +1411,8 @@ public class Game {
 
     /**
      * Play a card.
+     * 
+     * Called in `PlayCardHandler.java` on a `AjaxOperation.PLAY_CARD` call.
      *
      * @param user
      *          User playing the card.
@@ -1441,8 +1450,12 @@ public class Game {
                         if (WhiteDeck.isBlankCard(card)) {
                             ((BlankWhiteCard) playCard).setText(cardText);
                         }
-                        // remove the card from their hand. the client will also do so when we return
-                        // success, so no need to tell it to do so here.
+                        // Remove the card from the player's hand. The card will still end up in
+                        //   the discard pile because of the `playedCards.addCard` call below.
+                        // Any cards added to `playedCards` during a round will be discarded at
+                        //   the start of the next round by the `startNextRound` function.
+                        // The client will remove any DOM elements associated with this card when
+                        //   this function returns success (`null`).
                         iter.remove();
                         break;
                     }
@@ -1463,6 +1476,61 @@ public class Game {
             return null;
         }
     }
+
+    /**
+     * Discard a card.
+     * 
+     * Called in `DiscardCardHandler.java` on a `AjaxOperation.DISCARD_CARD` call.
+     *
+     * @param user
+     *          User discarding the card.
+     * @param cardId
+     *          ID of the card to discard.
+     * @return An {@code ErrorCode} if the discard was unsuccessful,
+     *         or {@code null} if there was no error and the discard
+     *         was successful.
+     */
+    public ErrorCode discardCard(final User user, final int cardId) {
+        final Player player = getPlayerForUser(user);
+        if (player != null) {
+            // Don't allow discard for judge or players not in `PLAYING` state.
+            if (getJudge() == player || state != GameState.PLAYING) {
+                return ErrorCode.NOT_YOUR_TURN;
+            }
+
+            final List<WhiteCard> hand = player.getHand();
+            WhiteCard discardCard = null;
+            synchronized (hand) {
+                final Iterator<WhiteCard> iter = hand.iterator();
+                while (iter.hasNext()) {
+                    final WhiteCard card = iter.next();
+                    if (card.getId() == cardId) {
+                        discardCard = card;
+                        
+                        // Remove the card from the player's hand. The card will still end up in
+                        //   the discard pile because of the `playedCards.addCard` call below.
+                        // Any cards added to `playedCards` during a round will be discarded at
+                        //   the start of the next round by the `startNextRound` function.
+                        // The client will remove any DOM elements associated with this card when
+                        //   this function returns success (`null`).
+                        iter.remove();
+                        break;
+                    }
+                }
+            }
+            if (discardCard != null) {
+                // Put this card into the discard pile.
+                whiteDeck.discard(discardCard);
+
+                return null;
+            } else {
+                return ErrorCode.DO_NOT_HAVE_CARD;
+            }
+        } else {
+            return null;
+        }
+    }
+
 
     /**
      * The judge has selected a card. The {@code cardId} passed in may be any white card's ID for
