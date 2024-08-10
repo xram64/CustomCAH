@@ -184,6 +184,7 @@ public class Constants {
      */
     NAMES("gn"),
     PLAY_CARD("pc"),
+    DISCARD_CARD("dc"),
     REGISTER("r"),
     SCORE("SC"),
     START_GAME("sg"),
