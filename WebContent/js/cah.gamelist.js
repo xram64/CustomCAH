@@ -324,7 +324,7 @@ cah.GameListLobby = function(parentElem, data) {
           + options[cah.$.GameOptionData.PLAYER_LIMIT] + " players, and "
           + data[cah.$.GameInfo.SPECTATORS].length + " of "
           + options[cah.$.GameOptionData.SPECTATOR_LIMIT] + "spectators. " + statusMessage
-          + ". Goal is " + options[cah.$.GameOptionData.SCORE_LIMIT] + " Awesome Points. Using "
+          + ". Goal is " + options[cah.$.GameOptionData.SCORE_LIMIT] + " Points. Using "
           + cardSetNames.length + " card set" + (cardSetNames.length == 1 ? "" : "s") + ". "
           + (data[cah.$.GameInfo.HAS_PASSWORD] ? "Has" : "Does not have") + " a password.");
 };
