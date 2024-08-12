@@ -272,7 +272,7 @@ cah.ajax.ErrorHandlers[cah.$.AjaxOperation.PLAY_CARD] = function(data, req) {
   }
 };
 
-cah.ajax.SuccessHandlers[cah.$.AjaxOperation.DISCARD_CARD] = function(data) {  // [xram]
+cah.ajax.SuccessHandlers[cah.$.AjaxOperation.DISCARD_CARD] = function(data, req) {  // [xram]
   var gameId = req[cah.$.AjaxRequest.GAME_ID];
   var game = cah.currentGames[gameId];
   if (game) {
@@ -280,7 +280,7 @@ cah.ajax.SuccessHandlers[cah.$.AjaxOperation.DISCARD_CARD] = function(data) {  /
   }
 };
 
-cah.ajax.ErrorHandlers[cah.$.AjaxOperation.DISCARD_CARD] = function(data) {  // [xram]
+cah.ajax.ErrorHandlers[cah.$.AjaxOperation.DISCARD_CARD] = function(data, req) {  // [xram]
   cah.log.error(cah.$.ErrorCode_msg[data[cah.$.AjaxResponse.ERROR_CODE]]);
 
   var gameId = req[cah.$.AjaxRequest.GAME_ID];
