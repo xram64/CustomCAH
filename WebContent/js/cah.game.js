@@ -195,6 +195,17 @@ cah.Game = function(id) {
   this.handSelectedCard_ = null;
 
   /**
+   * Card being marked for discard in the player's hand.  [xram]
+   * 
+   * (We need to keep track of this card object to know which page
+   * elements to remove when the discard operation is successful.)
+   * 
+   * @type {cah.card.WhiteCard}
+   * @private;
+   */
+  this.markedForDiscard_ = null;
+
+  /**
    * Selected card from the round's white cards.
    * 
    * @type {cah.card.WhiteCard}
@@ -1213,8 +1224,10 @@ cah.Game.prototype.handCardClick_ = function(e) {
     }
     // Otherwise, handle the discard request.
     else {
-      // Send an AJAX request to remove the card from the player's hand on the server side and put it in the discard pile.
-      // The client side DOM elements for the card will be removed in the `discardCardComplete` function upon a success response.
+      // Send an AJAX request to remove the card from the player's (server-side) hand and put it in the discard pile.
+      // The client-side DOM elements for the card stored in `markedForDiscard_` will be removed in the
+      //   `discardCardComplete` function upon a success response.
+      this.markedForDiscard_ = card;
       cah.Ajax.build(cah.$.AjaxOperation.DISCARD_CARD).withGameId(this.id_).withCardId(card.getServerId()).run();
     }
     return;
@@ -1372,7 +1385,9 @@ cah.Game.prototype.playCardError = function() {
  */
 cah.Game.prototype.discardCardComplete = function() {
   // Remove all DOM elements for this card from the page.
-  this.removeCardFromHand(card);
+  this.removeCardFromHand(this.markedForDiscard_);
+  this.markedForDiscard_ = null;
+
   $(".actionbtn_discard", this.element_).attr("disabled", "disabled");  // disable button
 
   cah.log.ariaStatus("Discarded card.");
@@ -1388,6 +1403,7 @@ cah.Game.prototype.discardCardComplete = function() {
  *          error Error message returned by `DiscardCardHandler`.
  */
 cah.Game.prototype.discardCardError = function(error) {
+  this.markedForDiscard_ = null;
   cah.log.status_with_game(this, error);
 };
 
