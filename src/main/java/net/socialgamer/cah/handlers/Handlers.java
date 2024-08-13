@@ -17,6 +17,7 @@ public class Handlers {
     LIST.put(ChangeGameOptionHandler.OP, ChangeGameOptionHandler.class);
     LIST.put(ChatHandler.OP, ChatHandler.class);
     LIST.put(CreateGameHandler.OP, CreateGameHandler.class);
+    LIST.put(DiscardCardHandler.OP, DiscardCardHandler.class);  // [xram]
     LIST.put(FirstLoadHandler.OP, FirstLoadHandler.class);
     LIST.put(GameChatHandler.OP, GameChatHandler.class);
     LIST.put(GameListHandler.OP, GameListHandler.class);
